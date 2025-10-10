@@ -9,13 +9,13 @@ import { StatCard } from '../components/ui/StatCard';
 import { Trophy, Target, Flame, BarChart3 } from 'lucide-react';
 import { useUserStore } from '@quiz/shared/stores/userStore';
 import { useSettingsStore, setStorageService } from '@quiz/shared/stores/settingsStore';
-import { storageService } from '@quiz/shared/services/StorageService';
+import { storageService } from '../services/StorageService';
 
 // Initialize settings store with storage service
 setStorageService(storageService);
 
 export const ProfileScreen: React.FC = () => {
-  const { userProfile, isLoading, loadUserProfile, accuracyRate, pointsToNextLevel } =
+  const { userProfile, isLoading, loadUserProfile, accuracyRate } =
     useUserStore();
   const {
     soundEnabled,

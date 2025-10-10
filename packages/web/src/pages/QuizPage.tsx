@@ -15,5 +15,5 @@ export default function QuizPage() {
     return <Navigate to="/" replace />;
   }
 
-  return <QuizSessionScreen category={state.category} />;
+  return <QuizSessionScreen />;
 }

@@ -23,13 +23,5 @@ export default function ResultsPage() {
     return <Navigate to="/" replace />;
   }
 
-  return (
-    <ResultsScreen
-      score={state.score}
-      totalQuestions={state.totalQuestions}
-      correctAnswers={state.correctAnswers}
-      incorrectAnswers={state.incorrectAnswers}
-      category={state.category}
-    />
-  );
+  return <ResultsScreen />;
 }

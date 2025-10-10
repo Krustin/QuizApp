@@ -8,7 +8,7 @@ import { Card } from '../components/ui/Card';
 import { Search } from 'lucide-react';
 import { QuizCategory } from '@quiz/shared';
 import { createEncyclopediaStore } from '@quiz/shared/stores/encyclopediaStore';
-import { storageService } from '@quiz/shared/services/StorageService';
+import { storageService } from '../services/StorageService';
 
 // Initialize store
 const useEncyclopediaStore = createEncyclopediaStore(storageService);

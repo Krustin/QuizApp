@@ -9,7 +9,7 @@ import { CategoryCard } from '../components/ui/CategoryCard';
 import { Card } from '../components/ui/Card';
 import { QuizCategory } from '@quiz/shared';
 import { createCategoryStore } from '@quiz/shared/stores/categoryStore';
-import { storageService } from '@quiz/shared/services/StorageService';
+import { storageService } from '../services/StorageService';
 
 // Category metadata mapping
 const CATEGORY_METADATA = {
