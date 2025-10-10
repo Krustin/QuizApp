@@ -80,16 +80,15 @@ export class QuestionSelector {
    * @private
    */
   private getCategoryName(category: QuizCategory): string {
-    // For now, we'll use the category enum value directly
-    // In the future, this could map to localized category names
+    // Map QuizCategory enum to question bank category names
     const categoryMap: Record<QuizCategory, string> = {
-      [QuizCategory.GENERAL]: 'Skurriles Wissen', // Temporarily using Skurriles for demo
-      [QuizCategory.HISTORY]: 'Geschichte',
-      [QuizCategory.SCIENCE]: 'Wissenschaft & Alltag',
-      [QuizCategory.GEOGRAPHY]: 'Allgemeinwissen',
-      [QuizCategory.POP_CULTURE]: 'Popkultur',
-      [QuizCategory.SPORTS]: 'Tiere',
-      [QuizCategory.TECHNOLOGY]: 'Technik',
+      [QuizCategory.GENERAL]: 'Allgemeinwissen',
+      [QuizCategory.SKURRILES]: 'Skurriles Wissen',
+      [QuizCategory.WISSENSCHAFT]: 'Wissenschaft & Alltag',
+      [QuizCategory.GESCHICHTE]: 'Geschichte',
+      [QuizCategory.POPKULTUR]: 'Popkultur',
+      [QuizCategory.TIERWISSEN]: 'Tiere',
+      [QuizCategory.TECHNIK]: 'Technik',
     };
     return categoryMap[category] || 'Skurriles Wissen';
   }

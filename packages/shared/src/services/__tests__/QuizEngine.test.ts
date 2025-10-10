@@ -327,7 +327,7 @@ describe('QuizEngine', () => {
       const updatedSession = quizEngine.recordAnswer(
         session,
         question,
-        'Berlin',
+        0, // Index 0 = Berlin
         5000,
         true
       );
@@ -406,7 +406,7 @@ describe('QuizEngine', () => {
       let updatedSession = quizEngine.recordAnswer(
         session,
         createMockQuestion('q1'),
-        'Berlin',
+        0, // Index 0 = Berlin
         5000,
         true
       );
@@ -414,7 +414,7 @@ describe('QuizEngine', () => {
       updatedSession = quizEngine.recordAnswer(
         updatedSession,
         createMockQuestion('q2'),
-        'Wrong',
+        1, // Wrong answer (index 1 = Munich)
         3000,
         false
       );
@@ -466,9 +466,10 @@ describe('QuizEngine', () => {
 
       questions.forEach(({ id, answer, correct }) => {
         const question = createMockQuestion(id);
-        const isCorrect = quizEngine.validateAnswer(question, correct ? question.correctAnswer : 'Wrong');
+        const answerIndex = correct ? question.correctAnswer : 1; // Use index 1 for wrong answer
+        const isCorrect = quizEngine.validateAnswer(question, answerIndex);
 
-        session = quizEngine.recordAnswer(session, question, answer, 5000, isCorrect);
+        session = quizEngine.recordAnswer(session, question, answerIndex, 5000, isCorrect);
       });
 
       // 3. Verify scores
@@ -496,7 +497,7 @@ describe('QuizEngine', () => {
         session = quizEngine.recordAnswer(
           session,
           question,
-          question.correctAnswer,
+          question.correctAnswer, // Already a number (index 0)
           5000,
           true
         );
@@ -518,7 +519,7 @@ describe('QuizEngine', () => {
       // Answer all questions incorrectly
       for (let i = 1; i <= 12; i++) {
         const question = createMockQuestion(`q${i}`);
-        session = quizEngine.recordAnswer(session, question, 'Wrong', 5000, false);
+        session = quizEngine.recordAnswer(session, question, 1, 5000, false); // Index 1 = wrong answer
       }
 
       expect(session.score).toBe(0);
