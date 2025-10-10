@@ -6,11 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Quiz App** is a German-language sarcastic quiz application for iOS, Android, and Web. The app features a condescending "Quizmaster" personality who mocks users through their quiz journey while they build knowledge through answering trivia questions.
 
-- **Current Phase**: Phase 0 - Foundation & Setup (Week 1)
+- **Current Phase**: Phase 3 - Complete (Deployed to Vercel)
 - **Architecture**: Local-first, offline-capable, no backend required for MVP
 - **Platforms**: iOS, Android (via Expo), Web (via Vite)
 - **Team**: Developer + Designer collaboration
 - **Timeline**: 8-10 weeks to MVP
+- **Deployment**: Vercel (web), Future: App Store & Play Store (mobile)
 
 ## Tech Stack
 
@@ -246,6 +247,12 @@ npm run build
 # Output in packages/web/dist
 ```
 
+**Vercel Deployment:**
+- Automatic deployment on push to `main` branch
+- Build command: `npm install && cd packages/shared && npm run build && cd ../web && npm run build`
+- Output directory: `packages/web/dist`
+- Monitor deployments at https://vercel.com/dashboard
+
 ## Important Patterns
 
 ### Question Data Structure
@@ -282,20 +289,54 @@ interface Question {
 @quiz_category_access    - CategoryAccess object
 ```
 
-## Current Phase: Phase 0 Tasks
+## Completed Phases
 
-Track progress in: `docs/quiz-kanban-tasks Phase 0.md`
+### Phase 0: Foundation & Setup ✅
+- Monorepo structure with shared package
+- TypeScript configuration across all packages
+- Core data models and interfaces
+- StorageService pattern with platform-specific implementations
+- Theme system and design tokens
 
-**Priority tasks (Week 1):**
-1. **D1**: Project Setup - Create monorepo, init Expo/Vite, configure TypeScript/ESLint
-2. **D2**: Dependencies & Structure - Install Zustand, React Navigation, setup folders
-3. **D3**: Core Infrastructure - Implement StorageService, navigation skeleton, data models
-4. **D4**: Theme System - Create design tokens (colors, shadows, spacing, typography)
-5. **D5**: Testing Setup - Configure Jest, write initial tests, setup CI/CD
+### Phase 1: Core Quiz Functionality ✅
+- QuizEngine service with full test coverage
+- Question selection and shuffling
+- Session management (start, answer, complete)
+- Scoring and streak tracking
+- 700 questions across 7 categories
 
-**Blocked pending designer:**
-- **Des1**: Design Kickoff - Figma setup, design system creation
-- **Des2**: Component Library - Button variants, answer buttons, cards
+### Phase 2: User Interface & Navigation ✅
+- 4-tab navigation (Play, Categories, Encyclopedia, Profile)
+- Quiz session screen with answer feedback
+- Category selection with lock/unlock states
+- Profile screen with stats and achievements
+- Responsive web design with Tailwind CSS
+
+### Phase 3: Advanced Features ✅
+- Results screen with session summary
+- Encyclopedia system with auto-population
+- Profile page with user stats
+- Daily challenge system
+- Complete quiz flow with persistence
+- **Vercel Deployment** - Web app live on Vercel
+
+## Recent Fixes (Vercel Deployment)
+
+### Build Configuration
+- **vercel.json**: Configured monorepo build process
+  - Builds shared package first, then web package
+  - Ensures TypeScript types available during build
+- **tsconfig.app.json**: Added explicit path mappings for `@quiz/shared`
+
+### TypeScript Fixes
+- **StorageService**: Added `saveEncyclopediaEntries` method to interface
+- **MockStorageImpl**: Implemented missing method for test compatibility
+- **QuizEngine**: Fixed type imports using `import type` for `verbatimModuleSyntax`
+- **QuizSessionScreen**: Corrected QuizCategory import and session properties
+
+### Git Workflow
+- All changes committed to both `main` and `develop` branches
+- Clean merge strategy with fast-forward merges
 
 ## Documentation
 
