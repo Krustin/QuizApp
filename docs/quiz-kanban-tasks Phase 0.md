@@ -10,52 +10,6 @@ kanban-plugin: board
 
 ## 🎯 Ready
 
-- [ ] **🔧 [D1] Project Setup** 👨‍💻 Dev #dev #setup #critical ⏫ 📅 2025-10-10
-	- Est: 6-8h | Actual: 0h
-	- 🎯 Milestone: M1
-	- Blocks: [[#D2]], [[#D3]], [[#D4]]
-	
-	**Quick Wins:**
-	- ✓ Expo runs without errors
-	- ✓ Vite runs without errors
-	- ✓ Git initialized
-	
-	<details>
-	<summary>📝 Detailed Tasks</summary>
-	
-	- [ ] Create monorepo structure (quiz-app/) #dev 📅 2025-01-13
-	- [ ] Initialize Expo project (mobile) 📅 2025-01-13 #dev
-	- [ ] Initialize Vite project (web) 📅 2025-01-13 #dev
-	- [ ] Configure TypeScript (tsconfig.json) 📅 2025-01-13 #dev
-	- [ ] Configure ESLint + Prettier 📅 2025-01-13 #dev
-	- [ ] Setup Git repository + .gitignore 📅 2025-01-13 #dev
-	- [ ] Create README.md with setup instructions 📅 2025-01-13 #dev
-	
-	</details>
-- [ ] **📦 [D2] Dependencies & Structure** 👨‍💻 Dev #dev #setup 🔼 📅 2025-10-10
-	- Est: 6-8h | Actual: 0h
-	- 🎯 Milestone: M1
-	- Depends on: [[#D1]]
-	- Blocks: [[#D3]]
-	
-	**Quick Wins:**
-	- ✓ All dependencies installed
-	- ✓ Folder structure complete
-	- ✓ Shared package imports work
-	
-	<details>
-	<summary>📝 Detailed Tasks</summary>
-	
-	- [ ] Install Zustand 📅 2025-01-14 #dev
-	- [ ] Install React Navigation 6 📅 2025-01-14 #dev
-	- [ ] Install React Router 6 📅 2025-01-14 #dev
-	- [ ] Install AsyncStorage 📅 2025-01-14 #dev
-	- [ ] Install expo-in-app-purchases 📅 2025-01-14 #dev
-	- [ ] Create folder structure 📅 2025-01-14 #dev
-	- [ ] Setup shared package 📅 2025-01-14 #dev
-	- [ ] Configure build scripts 📅 2025-01-14 #dev
-	
-	</details>
 - [ ] **🗂️ [D3] Core Infrastructure** 👨‍💻 Dev #dev #infrastructure #critical ⏫ 📅 2025-10-10
 	- Est: 6-8h | Actual: 0h
 	- 🎯 Milestone: M2
@@ -184,6 +138,18 @@ kanban-plugin: board
 
 ## 🔨 In Progress
 
+- [ ] **🗂️ [D3] Core Infrastructure** 👨‍💻 Dev #dev #infrastructure #critical ⏫ 📅 2025-10-10
+	- Est: 6-8h | Actual: 0h
+	- 🎯 Milestone: M2
+	- Depends on: [[#D1]], [[#D2]]
+	- Blocks: [[#D5]]
+
+	**Status:** Next up - ready to start
+
+	**Quick Wins:**
+	- ⏳ Storage service works
+	- ⏳ Navigation works (4 tabs)
+	- ⏳ Data models compile
 
 
 ## 🚧 Blocked
@@ -216,6 +182,47 @@ kanban-plugin: board
 
 
 ## ✅ Done
+
+- [x] **🔧 [D1] Project Setup** 👨‍💻 Dev #dev #setup #critical ⏫ ✅ 2025-10-10
+	- Est: 6-8h | Actual: 2h
+	- 🎯 Milestone: M1
+	- Blocks: [[#D2]], [[#D3]], [[#D4]]
+
+	**Quick Wins:**
+	- ✓ Expo runs without errors
+	- ✓ Vite runs without errors
+	- ✓ Git initialized
+
+	**Completed:**
+	- ✅ Create monorepo structure (quiz-app/)
+	- ✅ Initialize Expo project (mobile)
+	- ✅ Initialize Vite project (web)
+	- ✅ Configure TypeScript (tsconfig.json)
+	- ✅ Configure ESLint + Prettier
+	- ✅ Setup Git repository + .gitignore
+	- ✅ Create README.md with setup instructions
+
+- [x] **📦 [D2] Dependencies & Structure** 👨‍💻 Dev #dev #setup 🔼 ✅ 2025-10-10
+	- Est: 6-8h | Actual: 1h
+	- 🎯 Milestone: M1
+	- Depends on: [[#D1]]
+	- Blocks: [[#D3]]
+
+	**Quick Wins:**
+	- ✓ All dependencies installed
+	- ✓ Folder structure complete
+	- ✓ Shared package imports work
+
+	**Completed:**
+	- ✅ Install Zustand (mobile + web)
+	- ✅ Install React Navigation 6 (mobile)
+	- ✅ Install React Router 6 (web)
+	- ✅ Install AsyncStorage (mobile)
+	- ✅ Install expo-in-app-purchases (mobile)
+	- ✅ Create folder structure (all packages)
+	- ✅ Setup shared package with models
+	- ✅ Configure Tailwind CSS (web)
+	- ✅ Configure build scripts
 
 
 
