@@ -122,6 +122,24 @@ export class MockStorageImpl implements StorageService {
     }
   }
 
+  async saveEncyclopediaEntries(newEntries: EncyclopediaEntry[]): Promise<void> {
+    const existingEntries = await this.getEncyclopedia();
+
+    // Filter out duplicates
+    const entriesToAdd = newEntries.filter(
+      (newEntry) =>
+        !existingEntries.some(
+          (existing) =>
+            existing.entryId === newEntry.entryId || existing.questionId === newEntry.questionId
+        )
+    );
+
+    if (entriesToAdd.length > 0) {
+      const updatedEntries = [...existingEntries, ...entriesToAdd];
+      await this.save(STORAGE_KEYS.ENCYCLOPEDIA, updatedEntries);
+    }
+  }
+
   async getEncyclopediaEntry(entryId: string): Promise<EncyclopediaEntry | null> {
     const entries = await this.getEncyclopedia();
     return entries.find((e) => e.entryId === entryId) || null;
