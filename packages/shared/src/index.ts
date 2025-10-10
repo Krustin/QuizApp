@@ -12,6 +12,8 @@ export * from './services/QuizEngine';
 export * from './services/LevelCalculator';
 export * from './services/QuestionSelector';
 export * from './services/StreakManager';
+export * from './services/AudioService';
+export * from './services/QuizmasterService';
 
 // Export utils
 export * from './utils';

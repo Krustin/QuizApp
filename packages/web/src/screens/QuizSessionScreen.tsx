@@ -8,14 +8,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '../components/ui';
 import { QuizOption } from '../components/ui/QuizOption';
-import { QuizCategory } from '@quiz/shared';
+import { QuizCategory, SoundEffect, QuizmasterService } from '@quiz/shared';
 
 // Import stores and services from shared source
 // TODO: Update when properly exported from @quiz/shared
 import { useQuizStore } from '../../../shared/src/stores/quizStore';
 import { questionSelector } from '../../../shared/src/services/QuestionSelector';
-import { getSarcasticComment } from '../../../shared/src/data/sarcasticComments';
 import { storageService } from '../services/StorageService';
+import { webAudioService } from '../services/audio/WebAudioService';
 
 interface LocationState {
   category: QuizCategory;
@@ -52,9 +52,12 @@ export const QuizSessionScreen: React.FC = () => {
 
   // Initialize session on mount
   useEffect(() => {
-    const initSession = () => {
+    const initSession = async () => {
       try {
         console.log('Starting quiz with category:', category, 'isDailyChallenge:', isDailyChallenge);
+
+        // Preload audio
+        await webAudioService.preloadSounds();
 
         // Get questions for this category (5 for daily challenge, 12 for regular quiz)
         const questionCount = isDailyChallenge ? 5 : 12;
@@ -71,6 +74,10 @@ export const QuizSessionScreen: React.FC = () => {
         // Start the quiz session
         console.log('Starting quiz session...');
         startSession(category, selectedQuestions, 'user-id', 0); // TODO: Get real userId and streak
+
+        // Play quiz start sound
+        await webAudioService.play(SoundEffect.QUIZ_START);
+
         setIsLoading(false);
         console.log('Quiz session started successfully!');
       } catch (error) {
@@ -92,7 +99,7 @@ export const QuizSessionScreen: React.FC = () => {
   }, [currentQuestionIndex, isSessionActive]);
 
   // Handle answer selection
-  const handleAnswerSelect = (answerIndex: number) => {
+  const handleAnswerSelect = async (answerIndex: number) => {
     if (isRevealed) return;
 
     const question = currentQuestion();
@@ -104,11 +111,42 @@ export const QuizSessionScreen: React.FC = () => {
     const isCorrect = answerIndex === question.correctAnswer;
     const timeSpent = Date.now() - startTime;
 
+    // Play sound effect based on correctness
+    await webAudioService.play(
+      isCorrect ? SoundEffect.CORRECT_ANSWER : SoundEffect.WRONG_ANSWER
+    );
+
     // Record answer in store (now stores actual text from selected option)
     answerQuestion(question.options[answerIndex], timeSpent, isCorrect);
 
-    // Show quizmaster feedback
-    const message = getSarcasticComment(isCorrect);
+    // Calculate current streak from session
+    const session = currentSession;
+    let currentStreak = 0;
+    if (session) {
+      // Count consecutive correct answers from the end
+      for (let i = session.questions.length - 1; i >= 0; i--) {
+        if (session.questions[i].isCorrect) {
+          currentStreak++;
+        } else {
+          break;
+        }
+      }
+      // Add current answer if correct
+      if (isCorrect) currentStreak++;
+    }
+
+    // Calculate score percentage
+    const scorePercentage = session
+      ? (session.score / session.questions.length) * 100
+      : 0;
+
+    // Show context-aware quizmaster feedback
+    const message = QuizmasterService.getComment({
+      isCorrect,
+      currentStreak,
+      difficulty: question.difficulty,
+      scorePercentage,
+    });
     setQuizmasterMessage(message);
     setShowQuizmaster(true);
   };
@@ -138,6 +176,9 @@ export const QuizSessionScreen: React.FC = () => {
 
       // Complete session (saves and updates profile)
       await completeSession(storageService);
+
+      // Play quiz complete sound
+      await webAudioService.play(SoundEffect.QUIZ_COMPLETE);
 
       // Navigate to results with data
       navigate('/results', {
