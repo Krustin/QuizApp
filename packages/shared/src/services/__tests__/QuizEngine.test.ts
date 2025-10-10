@@ -17,17 +17,17 @@ jest.mock('../../utils/idGenerator', () => ({
 describe('QuizEngine', () => {
   let quizEngine: QuizEngine;
 
-  // Helper to create mock question
+  // Helper to create mock question (NEW FORMAT)
   const createMockQuestion = (id: string = 'q1'): Question => ({
     id,
-    category: QuizCategory.GENERAL,
-    difficulty: DifficultyLevel.EASY,
-    questionText: 'What is the capital of Germany?',
-    correctAnswer: 'Berlin',
-    wrongAnswers: ['Munich', 'Hamburg', 'Cologne'],
-    tldr: 'Berlin is the capital of Germany.',
+    question: 'What is the capital of Germany?',
+    options: ['Berlin', 'Munich', 'Hamburg', 'Cologne'],
+    correctAnswer: 0, // Index of 'Berlin'
+    explanation: 'Berlin is the capital of Germany.',
     funFact: 'Berlin is also a city-state.',
-    source: 'https://example.com',
+    category: 'Allgemeinwissen',
+    difficulty: 'easy',
+    tags: ['geography', 'germany'],
   });
 
   beforeEach(() => {
@@ -125,50 +125,45 @@ describe('QuizEngine', () => {
   describe('validateAnswer', () => {
     const question = createMockQuestion();
 
-    it('should return true for correct answer', () => {
-      const result = quizEngine.validateAnswer(question, 'Berlin');
+    it('should return true for correct answer index', () => {
+      const result = quizEngine.validateAnswer(question, 0); // Berlin is at index 0
 
       expect(result).toBe(true);
     });
 
-    it('should return false for incorrect answer', () => {
-      const result = quizEngine.validateAnswer(question, 'Munich');
+    it('should return false for incorrect answer index', () => {
+      const result = quizEngine.validateAnswer(question, 1); // Munich is incorrect
 
       expect(result).toBe(false);
     });
 
-    it('should be case-insensitive', () => {
-      expect(quizEngine.validateAnswer(question, 'BERLIN')).toBe(true);
-      expect(quizEngine.validateAnswer(question, 'berlin')).toBe(true);
-      expect(quizEngine.validateAnswer(question, 'BeRlIn')).toBe(true);
+    it('should validate all incorrect options', () => {
+      expect(quizEngine.validateAnswer(question, 1)).toBe(false); // Munich
+      expect(quizEngine.validateAnswer(question, 2)).toBe(false); // Hamburg
+      expect(quizEngine.validateAnswer(question, 3)).toBe(false); // Cologne
     });
 
-    it('should trim whitespace', () => {
-      expect(quizEngine.validateAnswer(question, '  Berlin  ')).toBe(true);
-      expect(quizEngine.validateAnswer(question, '\tBerlin\n')).toBe(true);
-      expect(quizEngine.validateAnswer(question, ' Berlin')).toBe(true);
-      expect(quizEngine.validateAnswer(question, 'Berlin ')).toBe(true);
+    it('should return false for negative index', () => {
+      expect(quizEngine.validateAnswer(question, -1)).toBe(false);
     });
 
-    it('should handle empty string as incorrect', () => {
-      expect(quizEngine.validateAnswer(question, '')).toBe(false);
+    it('should return false for index out of bounds', () => {
+      expect(quizEngine.validateAnswer(question, 4)).toBe(false);
+      expect(quizEngine.validateAnswer(question, 10)).toBe(false);
     });
 
-    it('should handle whitespace-only string as incorrect', () => {
-      expect(quizEngine.validateAnswer(question, '   ')).toBe(false);
+    it('should return false for non-integer index', () => {
+      expect(quizEngine.validateAnswer(question, 1.5 as any)).toBe(false);
     });
 
-    it('should return false for undefined answer', () => {
-      expect(quizEngine.validateAnswer(question, undefined as any)).toBe(false);
+    it('should handle question with invalid correctAnswer index', () => {
+      const invalidQuestion = { ...question, correctAnswer: 10 };
+      expect(quizEngine.validateAnswer(invalidQuestion, 0)).toBe(false);
     });
 
-    it('should return false for null answer', () => {
-      expect(quizEngine.validateAnswer(question, null as any)).toBe(false);
-    });
-
-    it('should handle question with empty correct answer', () => {
-      const invalidQuestion = { ...question, correctAnswer: '' };
-      expect(quizEngine.validateAnswer(invalidQuestion, 'Berlin')).toBe(false);
+    it('should handle question with negative correctAnswer index', () => {
+      const invalidQuestion = { ...question, correctAnswer: -1 };
+      expect(quizEngine.validateAnswer(invalidQuestion, 0)).toBe(false);
     });
   });
 
@@ -189,21 +184,21 @@ describe('QuizEngine', () => {
       const updatedSession = quizEngine.recordAnswer(
         session,
         question,
-        'Berlin',
+        0, // Index 0 = Berlin
         5000,
         true
       );
 
       expect(updatedSession.questions).toHaveLength(1);
       expect(updatedSession.questions[0].questionId).toBe(question.id);
-      expect(updatedSession.questions[0].userAnswer).toBe('Berlin');
+      expect(updatedSession.questions[0].userAnswer).toBe('Berlin'); // Stores actual text
     });
 
     it('should increment correctCount if correct', () => {
       const updatedSession = quizEngine.recordAnswer(
         session,
         question,
-        'Berlin',
+        0, // Index 0 = Berlin (correct)
         5000,
         true
       );
@@ -215,7 +210,7 @@ describe('QuizEngine', () => {
       const updatedSession = quizEngine.recordAnswer(
         session,
         question,
-        'Berlin',
+        0, // Index 0 = Berlin (correct)
         5000,
         true
       );
@@ -228,7 +223,7 @@ describe('QuizEngine', () => {
       const updatedSession = quizEngine.recordAnswer(
         session,
         question,
-        'Munich',
+        1, // Index 1 = Munich (incorrect)
         5000,
         false
       );
@@ -242,7 +237,7 @@ describe('QuizEngine', () => {
       const updatedSession = quizEngine.recordAnswer(
         session,
         question,
-        'Berlin',
+        0, // Index 0 = Berlin
         5000,
         true
       );
@@ -265,7 +260,7 @@ describe('QuizEngine', () => {
       const updatedSession = quizEngine.recordAnswer(
         session,
         question,
-        'Berlin',
+        0, // Index 0 = Berlin
         7500,
         true
       );
@@ -277,7 +272,7 @@ describe('QuizEngine', () => {
       const correctSession = quizEngine.recordAnswer(
         session,
         question,
-        'Berlin',
+        0, // Index 0 = Berlin (correct)
         5000,
         true
       );
@@ -286,7 +281,7 @@ describe('QuizEngine', () => {
       const incorrectSession = quizEngine.recordAnswer(
         session,
         question,
-        'Munich',
+        1, // Index 1 = Munich (incorrect)
         5000,
         false
       );
@@ -300,7 +295,7 @@ describe('QuizEngine', () => {
       updatedSession = quizEngine.recordAnswer(
         updatedSession,
         createMockQuestion('q1'),
-        'Berlin',
+        0, // Index 0 = correct answer
         5000,
         true
       );
@@ -309,7 +304,7 @@ describe('QuizEngine', () => {
       updatedSession = quizEngine.recordAnswer(
         updatedSession,
         createMockQuestion('q2'),
-        'Wrong',
+        2, // Index 2 = incorrect answer
         3000,
         false
       );
@@ -318,7 +313,7 @@ describe('QuizEngine', () => {
       updatedSession = quizEngine.recordAnswer(
         updatedSession,
         createMockQuestion('q3'),
-        'Correct',
+        0, // Index 0 = correct answer
         4000,
         true
       );
