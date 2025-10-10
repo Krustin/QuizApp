@@ -41,6 +41,12 @@ export const STORAGE_KEYS = {
    * Array of Achievement objects
    */
   ACHIEVEMENTS: '@quiz_achievements',
+
+  /**
+   * Stores user settings and preferences
+   * Settings object with sound, theme, language, etc.
+   */
+  SETTINGS: '@quiz_settings',
 } as const;
 
 /**

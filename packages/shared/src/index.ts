@@ -4,6 +4,7 @@ export * from './models';
 // Export constants
 export * from './constants/gameConstants';
 export * from './constants/storageKeys';
+export * from './constants/initialData';
 
 // Export services
 export * from './services/StorageService';
