@@ -6,7 +6,7 @@ import React from 'react';
 import { Card } from './Card';
 import { Button } from './Button';
 import { Lock, CheckCircle } from 'lucide-react';
-import { QuizCategory } from '@quiz/shared/models/Enums';
+import { QuizCategory } from '@quiz/shared';
 
 interface CategoryCardProps {
   title: string;
