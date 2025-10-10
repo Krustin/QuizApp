@@ -83,7 +83,7 @@ export class QuestionSelector {
   private getCategoryName(category: QuizCategory): string {
     // Map QuizCategory enum to question bank category names
     const categoryMap: Record<QuizCategory, string> = {
-      [QuizCategory.GENERAL]: 'Allgemeinwissen',
+      [QuizCategory.GENERAL]: 'Skurriles Wissen', // Default category with most questions
       [QuizCategory.SKURRILES]: 'Skurriles Wissen',
       [QuizCategory.WISSENSCHAFT]: 'Wissenschaft & Alltag',
       [QuizCategory.GESCHICHTE]: 'Geschichte',
