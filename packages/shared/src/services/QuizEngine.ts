@@ -56,30 +56,29 @@ export class QuizEngine {
   /**
    * Validate if selected answer is correct
    *
-   * Performs a case-insensitive comparison between the selected answer
-   * and the correct answer, with whitespace trimming.
+   * Checks if the selected answer index matches the correct answer index.
+   * New format uses index-based validation (0-3 for A-D options).
    *
    * @param question - The question being answered
-   * @param selectedAnswer - The answer text selected by user
+   * @param selectedAnswerIndex - The index of the answer selected by user (0-3)
    * @returns True if answer is correct, false otherwise
    *
    * @example
-   * const isCorrect = quizEngine.validateAnswer(
-   *   question,
-   *   "Berlin"
-   * );
+   * const isCorrect = quizEngine.validateAnswer(question, 2); // User selected option C
    */
-  validateAnswer(question: Question, selectedAnswer: string): boolean {
+  validateAnswer(question: Question, selectedAnswerIndex: number): boolean {
     // Handle edge cases
-    if (!selectedAnswer || !question.correctAnswer) {
+    if (
+      selectedAnswerIndex < 0 ||
+      selectedAnswerIndex >= question.options.length ||
+      question.correctAnswer < 0 ||
+      question.correctAnswer >= question.options.length
+    ) {
       return false;
     }
 
-    // Case-insensitive comparison with trimmed whitespace
-    return (
-      selectedAnswer.trim().toLowerCase() ===
-      question.correctAnswer.trim().toLowerCase()
-    );
+    // Simple index comparison
+    return selectedAnswerIndex === question.correctAnswer;
   }
 
   /**
@@ -91,7 +90,7 @@ export class QuizEngine {
    *
    * @param session - Current quiz session
    * @param question - The question answered
-   * @param selectedAnswer - The answer selected
+   * @param selectedAnswerIndex - The index of the answer selected (0-3)
    * @param timeSpent - Time spent in milliseconds
    * @param isCorrect - Whether answer was correct
    * @returns Updated session with new answer recorded
@@ -100,7 +99,7 @@ export class QuizEngine {
    * const updatedSession = quizEngine.recordAnswer(
    *   currentSession,
    *   question,
-   *   "Berlin",
+   *   2, // User selected option C
    *   5000,
    *   true
    * );
@@ -108,14 +107,14 @@ export class QuizEngine {
   recordAnswer(
     session: QuizSession,
     question: Question,
-    selectedAnswer: string,
+    selectedAnswerIndex: number,
     timeSpent: number,
     isCorrect: boolean
   ): QuizSession {
     // Create SessionQuestion object
     const sessionQuestion: SessionQuestion = {
       questionId: question.id,
-      userAnswer: selectedAnswer,
+      userAnswer: question.options[selectedAnswerIndex] || '', // Store the actual answer text
       isCorrect,
       timeToAnswer: timeSpent,
       pointsEarned: isCorrect ? 10 : 0,
