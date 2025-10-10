@@ -11,16 +11,7 @@
 
 import { QuizCategory } from '../models/Enums';
 import type { UserProfile, CategoryAccess } from '../models';
-
-/**
- * Generates a simple unique ID based on timestamp and random number.
- * This is a lightweight alternative to UUID libraries for client-side only apps.
- *
- * @returns A unique string ID
- */
-function generateSimpleId(): string {
-  return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
-}
+import { generateSimpleId } from '../utils/idGenerator';
 
 /**
  * Default user profile for new users.
