@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import type { QuizSession, SessionQuestion } from '../models/Session';
 import type { Question } from '../models/Question';
 import type { QuizCategory } from '../models/Enums';
+import type { EncyclopediaEntry } from '../models/Encyclopedia';
 import type { StorageService } from '../services/StorageService';
 import { useUserStore } from './userStore';
 
@@ -217,7 +218,7 @@ export const useQuizStore = create<QuizStore>((set, get) => ({
   },
 
   completeSession: async (storageService: StorageService) => {
-    const { currentSession } = get();
+    const { currentSession, questions } = get();
 
     if (!currentSession) {
       console.error('No active session to complete');
@@ -233,6 +234,28 @@ export const useQuizStore = create<QuizStore>((set, get) => ({
 
       // Save session to storage
       await storageService.saveSession(completedSession);
+
+      // Add correct answers to encyclopedia
+      const correctQuestions = currentSession.questions
+        .filter(q => q.isCorrect)
+        .map(q => questions.find(qu => qu.id === q.questionId))
+        .filter((q): q is Question => q !== undefined);
+
+      if (correctQuestions.length > 0) {
+        const encyclopediaEntries: EncyclopediaEntry[] = correctQuestions.map(q => ({
+          entryId: `entry-${q.id}`,
+          questionId: q.id,
+          questionText: q.question,
+          correctAnswer: q.options[q.correctAnswer],
+          tldr: q.explanation,
+          funFact: q.funFact,
+          category: currentSession.category,
+          unlockedAt: new Date(),
+        }));
+
+        // Save encyclopedia entries
+        await storageService.saveEncyclopediaEntries(encyclopediaEntries);
+      }
 
       // Update user profile stats
       const userStore = useUserStore.getState();

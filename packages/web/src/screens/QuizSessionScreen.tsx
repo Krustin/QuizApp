@@ -15,6 +15,7 @@ import type { QuizCategory } from '@quiz/shared';
 import { useQuizStore } from '../../../shared/src/stores/quizStore';
 import { questionSelector } from '../../../shared/src/services/QuestionSelector';
 import { getSarcasticComment } from '../../../shared/src/data/sarcasticComments';
+import { storageService } from '../services/StorageService';
 
 interface LocationState {
   category: QuizCategory;
@@ -33,6 +34,8 @@ export const QuizSessionScreen: React.FC = () => {
     currentQuestionIndex,
     questions,
     isSessionActive,
+    currentSession,
+    completeSession,
   } = useQuizStore();
 
   // Local state for quiz interaction
@@ -49,8 +52,8 @@ export const QuizSessionScreen: React.FC = () => {
       try {
         console.log('Starting quiz with category:', category);
 
-        // Get questions for this category
-        const selectedQuestions = questionSelector.getRandomQuestions(category, 12);
+        // Get questions for this category (5 for daily challenge feel)
+        const selectedQuestions = questionSelector.getRandomQuestions(category, 5);
         console.log('Got questions:', selectedQuestions.length);
 
         if (selectedQuestions.length === 0) {
@@ -106,7 +109,7 @@ export const QuizSessionScreen: React.FC = () => {
   };
 
   // Handle next question or complete quiz
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentQuestionIndex < questions.length - 1) {
       // Move to next question
       nextQuestion();
@@ -114,8 +117,29 @@ export const QuizSessionScreen: React.FC = () => {
       setIsRevealed(false);
       setShowQuizmaster(false);
     } else {
-      // Quiz complete - navigate to results
-      navigate('/results');
+      // Quiz complete - get session data before completing
+      const session = currentSession;
+      if (!session) return;
+
+      // Calculate results
+      const correctAnswersData = session.questions
+        .filter(q => q.isCorrect)
+        .map(q => {
+          const fullQuestion = questions.find(qu => qu.id === q.questionId);
+          return fullQuestion!;
+        });
+
+      // Complete session (saves and updates profile)
+      await completeSession(storageService);
+
+      // Navigate to results with data
+      navigate('/results', {
+        state: {
+          score: session.questionsCorrect,
+          totalQuestions: session.questionsAnswered,
+          correctAnswers: correctAnswersData,
+        },
+      });
     }
   };
 
