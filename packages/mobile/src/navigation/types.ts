@@ -1,6 +1,17 @@
+import { QuizCategory } from '@quiz/shared';
+
 export type RootStackParamList = {
   MainTabs: undefined;
-  QuizSession: { categoryId: string };
+  QuizSession: {
+    category: QuizCategory;
+  };
+  Results: {
+    score: number;
+    totalQuestions: number;
+    correctAnswers: number;
+    incorrectAnswers: number;
+    category: QuizCategory;
+  };
 };
 
 export type MainTabParamList = {
