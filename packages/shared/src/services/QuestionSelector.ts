@@ -11,7 +11,8 @@
  * - Proper fallback handling for limited question pools
  */
 
-import { Question, QuizCategory } from '../models';
+import type { Question } from '../models';
+import { QuizCategory } from '../models';
 import { getQuestionsByCategory, shuffleQuestionOptions } from '../data/questions';
 
 /**

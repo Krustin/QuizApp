@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { EncyclopediaEntry, QuizCategory } from '../models';
+import type { EncyclopediaEntry } from '../models';
+import { QuizCategory } from '../models';
 import type { StorageService } from '../services/StorageService';
 
 /**

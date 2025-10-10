@@ -8,7 +8,8 @@
  * import { loadQuestionsByCategory, getAllQuestions } from '@quiz-app/shared/data/questions/questionLoader';
  */
 
-import { Question, QuizCategory, LegacyQuestion } from '../../models';
+import type { LegacyQuestion } from '../../models';
+import { QuizCategory } from '../../models';
 import generalSample from './general-sample.json';
 
 /**

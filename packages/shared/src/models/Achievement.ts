@@ -1,4 +1,4 @@
-import { AchievementType } from './Enums';
+import type { AchievementType } from './Enums';
 
 /**
  * Achievement interface
@@ -20,3 +20,6 @@ export interface Achievement {
   icon: string;
   unlockedAt?: Date;
 }
+
+// Export the enum for reference
+export type { AchievementType };

@@ -1,5 +1,5 @@
 import { QuizCategory } from './Enums';
-import { Achievement } from './Achievement';
+import type { Achievement } from './Achievement';
 
 /**
  * UserProfile interface

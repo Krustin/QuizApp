@@ -87,7 +87,7 @@ const persistSettings = async (settings: Settings) => {
  * const { soundEnabled, toggleSound } = useSettingsStore();
  * ```
  */
-export const useSettingsStore = create<SettingsStore>((set, get) => ({
+export const useSettingsStore = create<SettingsStore>((set) => ({
   // Initial state
   ...DEFAULT_SETTINGS,
 
