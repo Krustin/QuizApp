@@ -6,6 +6,7 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Play, Shuffle, Flame } from 'lucide-react';
+import { DailyChallenge } from '../components/DailyChallenge';
 import type { QuizCategory } from '@quiz/shared';
 
 // Note: Import stores directly from shared/src since they're not exported from main index
@@ -136,6 +137,9 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
             <span className="text-lg font-bold">Wissenslücken durchstöbern</span>
           </button>
         </div>
+
+        {/* Daily Challenge */}
+        <DailyChallenge onStartChallenge={handleRandomQuiz} />
 
         {/* Tips Card */}
         <div className="game-card">
