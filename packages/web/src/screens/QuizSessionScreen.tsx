@@ -23,7 +23,7 @@ interface LocationState {
 export const QuizSessionScreen: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { category } = (location.state as LocationState) || { category: 'GENERAL' };
+  const { category } = (location.state as LocationState) || { category: QuizCategory.GENERAL };
 
   const {
     startSession,
@@ -47,21 +47,28 @@ export const QuizSessionScreen: React.FC = () => {
   useEffect(() => {
     const initSession = () => {
       try {
+        console.log('Starting quiz with category:', category);
+
         // Get questions for this category
         const selectedQuestions = questionSelector.getRandomQuestions(category, 12);
+        console.log('Got questions:', selectedQuestions.length);
 
         if (selectedQuestions.length === 0) {
           console.error('No questions available for category:', category);
-          navigate('/play');
+          alert(`Keine Fragen verfügbar für Kategorie: ${category}`);
+          navigate('/');
           return;
         }
 
         // Start the quiz session
+        console.log('Starting quiz session...');
         startSession(category, selectedQuestions, 'user-id', 0); // TODO: Get real userId and streak
         setIsLoading(false);
+        console.log('Quiz session started successfully!');
       } catch (error) {
         console.error('Error initializing quiz session:', error);
-        navigate('/play');
+        alert(`Fehler beim Starten des Quiz: ${error}`);
+        navigate('/');
       }
     };
 
