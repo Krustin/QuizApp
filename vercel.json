@@ -1,8 +1,6 @@
 {
-  "buildCommand": "npm run build --workspace=@quiz/web",
+  "buildCommand": "npm install && npm run build --workspace=@quiz/web",
   "outputDirectory": "packages/web/dist",
-  "devCommand": "npm run dev --workspace=@quiz/web",
   "installCommand": "npm install",
-  "framework": null,
-  "public": false
+  "framework": null
 }
