@@ -4,8 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Target, CheckCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { Progress } from './ui/Progress';
 
 interface DailyChallengeProps {

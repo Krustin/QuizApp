@@ -137,6 +137,14 @@ export interface StorageService {
    */
   getEncyclopediaEntry(entryId: string): Promise<EncyclopediaEntry | null>;
 
+  /**
+   * Saves multiple encyclopedia entries at once.
+   * Only adds entries that don't already exist (by entryId or questionId).
+   *
+   * @param entries - Array of encyclopedia entries to save
+   */
+  saveEncyclopediaEntries(entries: EncyclopediaEntry[]): Promise<void>;
+
   // ========================================
   // Category Access Methods
   // ========================================

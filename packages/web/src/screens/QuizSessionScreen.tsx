@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '../components/ui';
 import { QuizOption } from '../components/ui/QuizOption';
-import type { QuizCategory } from '@quiz/shared';
+import { QuizCategory } from '@quiz/shared';
 
 // Import stores and services from shared source
 // TODO: Update when properly exported from @quiz/shared
@@ -142,8 +142,8 @@ export const QuizSessionScreen: React.FC = () => {
       // Navigate to results with data
       navigate('/results', {
         state: {
-          score: session.questionsCorrect,
-          totalQuestions: session.questionsAnswered,
+          score: session.score,
+          totalQuestions: session.questions.length,
           correctAnswers: correctAnswersData,
         },
       });

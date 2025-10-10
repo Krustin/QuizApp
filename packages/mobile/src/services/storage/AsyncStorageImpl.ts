@@ -286,6 +286,35 @@ class AsyncStorageImpl implements StorageService {
     }
   }
 
+  /**
+   * Saves multiple encyclopedia entries at once.
+   * Only adds entries that don't already exist (by entryId or questionId).
+   *
+   * @param newEntries - Array of encyclopedia entries to save
+   */
+  async saveEncyclopediaEntries(newEntries: EncyclopediaEntry[]): Promise<void> {
+    try {
+      const existingEntries = await this.getEncyclopedia();
+
+      // Filter out duplicates
+      const entriesToAdd = newEntries.filter(
+        newEntry =>
+          !existingEntries.some(
+            existing =>
+              existing.entryId === newEntry.entryId || existing.questionId === newEntry.questionId
+          )
+      );
+
+      if (entriesToAdd.length > 0) {
+        const updatedEntries = [...existingEntries, ...entriesToAdd];
+        await this.save(STORAGE_KEYS.ENCYCLOPEDIA, updatedEntries);
+      }
+    } catch (error) {
+      console.error('[AsyncStorageImpl] Error saving encyclopedia entries:', error);
+      throw new Error(`Failed to save encyclopedia entries: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }
+
   // ========================================
   // Category Access Methods
   // ========================================

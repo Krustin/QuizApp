@@ -249,7 +249,7 @@ export const useQuizStore = create<QuizStore>((set, get) => ({
           correctAnswer: q.options[q.correctAnswer],
           tldr: q.explanation,
           funFact: q.funFact,
-          category: currentSession.category,
+          category: currentSession.categoryId,
           unlockedAt: new Date(),
         }));
 
