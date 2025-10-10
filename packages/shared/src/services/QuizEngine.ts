@@ -6,7 +6,8 @@
  * to completion, including answer validation and scoring.
  */
 
-import { Question, QuizSession, SessionQuestion, QuizCategory } from '../models';
+import type { Question, QuizSession, SessionQuestion } from '../models';
+import { QuizCategory } from '../models';
 import { generateSimpleId } from '../utils/idGenerator';
 
 /**
@@ -36,7 +37,7 @@ export class QuizEngine {
   initializeSession(
     userId: string,
     category: QuizCategory,
-    questions: Question[],
+    _questions: Question[],
     currentStreak: number
   ): QuizSession {
     return {
