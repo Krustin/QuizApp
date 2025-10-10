@@ -22,5 +22,5 @@ export * from './theme';
 // Export game logic (placeholder for future game logic)
 // export * from './gameLogic';
 
-// Export question data (placeholder for future question data)
-// export * from './data/questions';
+// Export data
+export * from './data/sarcasticComments';

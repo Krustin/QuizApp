@@ -1,29 +1,15 @@
 /**
- * Categories Screen - Mobile
+ * Categories Screen - Web
  * Displays all quiz categories with unlock/select functionality
  */
 
 import React, { useEffect } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
+import { useNavigate } from 'react-router-dom';
 import { CategoryCard } from '../components/ui/CategoryCard';
 import { Card } from '../components/ui/Card';
-import { colors, typography, spacing } from '@quiz/shared/theme';
-import { QuizCategory } from '@quiz/shared/models';
+import { QuizCategory } from '@quiz/shared';
 import { createCategoryStore } from '@quiz/shared/stores/categoryStore';
 import { storageService } from '@quiz/shared/services/StorageService';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-
-type RootStackParamList = {
-  Categories: undefined;
-};
-
-type Props = NativeStackScreenProps<RootStackParamList, 'Categories'>;
 
 // Category metadata mapping
 const CATEGORY_METADATA = {
@@ -81,7 +67,8 @@ const CATEGORY_METADATA = {
 // Initialize store
 const useCategoryStore = createCategoryStore(storageService);
 
-export default function CategoriesScreen({ navigation }: Props) {
+export const CategoriesScreen: React.FC = () => {
+  const navigate = useNavigate();
   const { categoryAccess, isLoading, loadCategoryAccess, unlockCategory } = useCategoryStore();
 
   useEffect(() => {
@@ -89,8 +76,8 @@ export default function CategoriesScreen({ navigation }: Props) {
   }, [loadCategoryAccess]);
 
   const handleCategorySelect = (category: QuizCategory) => {
-    // Navigate to QuizSession/Play screen with selected category
-    navigation.navigate('Play' as never, { category } as never);
+    // Navigate to play screen with selected category
+    navigate('/play', { state: { category } });
   };
 
   const handleUnlock = async (category: QuizCategory) => {
@@ -107,26 +94,26 @@ export default function CategoriesScreen({ navigation }: Props) {
 
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={colors.primary.main} />
-        <Text style={styles.loadingText}>Lade Kategorien...</Text>
-      </View>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-muted-foreground">Lade Kategorien...</p>
+        </div>
+      </div>
     );
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <div className="min-h-screen bg-background pb-24">
       {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerEmoji}>📚</Text>
-        <Text style={styles.headerTitle}>Wissenslücken-Katalog</Text>
-        <Text style={styles.headerSubtitle}>
-          Wähle deine bevorzugte Art der Demütigung
-        </Text>
-      </View>
+      <div className="bg-primary text-primary-foreground p-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 text-6xl opacity-10 floating-element">📚</div>
+        <h1 className="text-3xl font-bold">Wissenslücken-Katalog</h1>
+        <p className="text-base opacity-90 mt-2">Wähle deine bevorzugte Art der Demütigung</p>
+      </div>
 
-      {/* Categories List */}
-      <View style={styles.categoriesList}>
+      {/* Categories Grid */}
+      <div className="p-4 space-y-5">
         {Object.values(QuizCategory).map((categoryEnum) => {
           const metadata = CATEGORY_METADATA[categoryEnum];
           const access = categoryAccess.find((a) => a.categoryId === categoryEnum);
@@ -146,86 +133,21 @@ export default function CategoriesScreen({ navigation }: Props) {
             />
           );
         })}
-      </View>
+      </div>
 
       {/* No Ads Notice */}
-      <Card style={styles.noticeCard}>
-        <View style={styles.noticeContent}>
-          <Text style={styles.noticeText}>
-            🚫 Keine nervigen Ads • 💸 Nur ehrliche Abzocke • 🔒 Einmaliger Kauf
-          </Text>
-          <Text style={styles.restoreLink}>
-            Käufe wiederherstellen (falls du schon mal bezahlt hast)
-          </Text>
-        </View>
-      </Card>
-    </ScrollView>
+      <div className="mx-4 mb-6">
+        <Card className="p-4">
+          <div className="text-center">
+            <p className="text-sm text-muted-foreground mb-3">
+              🚫 Keine nervigen Ads • 💸 Nur ehrliche Abzocke • 🔒 Einmaliger Kauf
+            </p>
+            <button className="text-sm text-primary hover:underline font-medium">
+              Käufe wiederherstellen (falls du schon mal bezahlt hast)
+            </button>
+          </div>
+        </Card>
+      </div>
+    </div>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background.main,
-  },
-  content: {
-    paddingBottom: spacing[6],
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.background.main,
-  },
-  loadingText: {
-    marginTop: spacing[4],
-    fontSize: typography.fontSize.base,
-    color: colors.text.secondary,
-  },
-  header: {
-    backgroundColor: colors.primary.main,
-    padding: spacing[6],
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  headerEmoji: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    fontSize: 60,
-    opacity: 0.1,
-  },
-  headerTitle: {
-    fontSize: typography.fontSize['3xl'],
-    fontWeight: typography.fontWeight.bold,
-    color: colors.primary.foreground,
-    marginBottom: spacing[2],
-  },
-  headerSubtitle: {
-    fontSize: typography.fontSize.base,
-    color: colors.primary.foreground,
-    opacity: 0.9,
-  },
-  categoriesList: {
-    padding: spacing[4],
-  },
-  noticeCard: {
-    marginHorizontal: spacing[4],
-    marginBottom: spacing[6],
-  },
-  noticeContent: {
-    alignItems: 'center',
-  },
-  noticeText: {
-    fontSize: typography.fontSize.sm,
-    color: colors.text.secondary,
-    textAlign: 'center',
-    marginBottom: spacing[3],
-  },
-  restoreLink: {
-    fontSize: typography.fontSize.sm,
-    color: colors.primary.main,
-    fontWeight: typography.fontWeight.medium,
-    textAlign: 'center',
-  },
-});
+};
