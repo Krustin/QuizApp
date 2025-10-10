@@ -40,7 +40,6 @@ export const QuizSessionScreen: React.FC = () => {
   const [isRevealed, setIsRevealed] = useState(false);
   const [quizmasterMessage, setQuizmasterMessage] = useState('');
   const [showQuizmaster, setShowQuizmaster] = useState(false);
-  const [shuffledAnswers, setShuffledAnswers] = useState<Array<{ text: string; isCorrect: boolean }>>([]);
   const [startTime, setStartTime] = useState<number>(Date.now());
   const [isLoading, setIsLoading] = useState(true);
 
@@ -69,12 +68,10 @@ export const QuizSessionScreen: React.FC = () => {
     initSession();
   }, [category]);
 
-  // Shuffle answers when question changes
+  // Reset timer when question changes
   useEffect(() => {
     const question = currentQuestion();
     if (question && isSessionActive) {
-      const shuffled = questionSelector.shuffleAnswers(question);
-      setShuffledAnswers(shuffled);
       setStartTime(Date.now());
     }
   }, [currentQuestionIndex, isSessionActive]);
@@ -83,15 +80,17 @@ export const QuizSessionScreen: React.FC = () => {
   const handleAnswerSelect = (answerIndex: number) => {
     if (isRevealed) return;
 
+    const question = currentQuestion();
+    if (!question) return;
+
     setSelectedAnswerIndex(answerIndex);
     setIsRevealed(true);
 
-    const selectedAnswer = shuffledAnswers[answerIndex];
-    const isCorrect = selectedAnswer.isCorrect;
+    const isCorrect = answerIndex === question.correctAnswer;
     const timeSpent = Date.now() - startTime;
 
-    // Record answer in store
-    answerQuestion(selectedAnswer.text, timeSpent, isCorrect);
+    // Record answer in store (now stores actual text from selected option)
+    answerQuestion(question.options[answerIndex], timeSpent, isCorrect);
 
     // Show quizmaster feedback
     const message = getSarcasticComment(isCorrect);
@@ -161,18 +160,18 @@ export const QuizSessionScreen: React.FC = () => {
       <div className="p-4">
         {/* Question card */}
         <div className="bg-card rounded-xl p-6 shadow-sm border border-border mb-6">
-          <h2 className="text-lg leading-tight">{question.questionText}</h2>
+          <h2 className="text-lg leading-tight">{question.question}</h2>
         </div>
 
         {/* Answer options */}
         <div className="space-y-3 mb-6">
-          {shuffledAnswers.map((answer, index) => (
+          {question.options.map((option, index) => (
             <QuizOption
               key={index}
-              option={answer.text}
+              option={option}
               index={index}
               isSelected={selectedAnswerIndex === index}
-              isCorrect={answer.isCorrect}
+              isCorrect={index === question.correctAnswer}
               isRevealed={isRevealed}
               onSelect={() => handleAnswerSelect(index)}
               disabled={isRevealed}
