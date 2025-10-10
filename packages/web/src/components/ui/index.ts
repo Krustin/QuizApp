@@ -7,3 +7,4 @@ export * from './Card';
 export * from './StatCard';
 export * from './CategoryCard';
 export * from './QuizOption';
+export * from './Progress';

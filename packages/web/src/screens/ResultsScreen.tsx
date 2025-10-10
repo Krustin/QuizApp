@@ -6,9 +6,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Button } from '../components/ui/Button';
-import { Card } from '../components/ui/Card';
-import { StatCard } from '../components/ui/StatCard';
 import { RotateCcw, Home, BookOpen, Trophy, Target } from 'lucide-react';
 import type { Question } from '@quiz/shared';
 
@@ -77,7 +74,7 @@ export const ResultsScreen: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <Card className="p-6 text-center bg-gradient-to-br from-primary/5 to-accent/5">
+          <div className="game-card p-6 text-center bg-gradient-to-br from-primary/5 to-accent/5">
             <div className={`text-6xl font-bold mb-2 ${resultGrade.color}`}>
               {resultGrade.grade}
             </div>
@@ -90,7 +87,7 @@ export const ResultsScreen: React.FC = () => {
             <div className="inline-block bg-secondary rounded-lg px-4 py-2">
               <span className="text-sm font-bold">+{points} Punkte</span>
             </div>
-          </Card>
+          </div>
         </motion.div>
 
         {/* Quizmaster Comment */}
@@ -99,7 +96,7 @@ export const ResultsScreen: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <Card className="p-4 bg-accent/10 border-accent/20">
+          <div className="game-card p-4 bg-accent/10 border-accent/20">
             <div className="flex items-start gap-3">
               <div className="text-2xl">😈</div>
               <div>
@@ -109,26 +106,26 @@ export const ResultsScreen: React.FC = () => {
                 </p>
               </div>
             </div>
-          </Card>
+          </div>
         </motion.div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-3 gap-3">
-          <StatCard
-            icon={<Target className="w-5 h-5 text-success" />}
-            value={score}
-            label="Richtig"
-          />
-          <StatCard
-            icon={<Trophy className="w-5 h-5 text-accent" />}
-            value={points}
-            label="Punkte"
-          />
-          <StatCard
-            icon={<BookOpen className="w-5 h-5 text-primary" />}
-            value={correctAnswers.length}
-            label="Gelernt"
-          />
+          <div className="game-stat-card p-3 text-center">
+            <Target className="w-5 h-5 text-success mx-auto mb-1" />
+            <p className="text-lg font-medium">{score}</p>
+            <p className="text-xs text-muted-foreground">Richtig</p>
+          </div>
+          <div className="game-stat-card p-3 text-center">
+            <Trophy className="w-5 h-5 text-accent mx-auto mb-1" />
+            <p className="text-lg font-medium">{points}</p>
+            <p className="text-xs text-muted-foreground">Punkte</p>
+          </div>
+          <div className="game-stat-card p-3 text-center">
+            <BookOpen className="w-5 h-5 text-primary mx-auto mb-1" />
+            <p className="text-lg font-medium">{correctAnswers.length}</p>
+            <p className="text-xs text-muted-foreground">Gelernt</p>
+          </div>
         </div>
 
         {/* Encyclopedia Notice */}
@@ -138,7 +135,7 @@ export const ResultsScreen: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <Card className="p-4 bg-muted/50">
+            <div className="game-card p-4 bg-muted/50">
               <div className="flex items-center gap-3">
                 <BookOpen className="w-5 h-5 text-primary" />
                 <div className="flex-1">
@@ -151,38 +148,36 @@ export const ResultsScreen: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </Card>
+            </div>
           </motion.div>
         )}
 
         {/* Action Buttons */}
         <div className="space-y-3 pt-2">
-          <Button
-            variant="primary"
-            size="lg"
-            fullWidth
+          <button
             onClick={handlePlayAgain}
+            className="w-full py-4 px-6 game-button-primary flex items-center justify-center"
           >
             <RotateCcw className="w-5 h-5 mr-2" />
-            Nochmal versuchen
-          </Button>
+            <span className="font-bold">Nochmal versuchen</span>
+          </button>
 
           <div className="grid grid-cols-2 gap-3">
-            <Button
-              variant="secondary"
+            <button
               onClick={handleViewEncyclopedia}
+              className="py-3 px-4 game-button-secondary flex items-center justify-center"
             >
               <BookOpen className="w-4 h-4 mr-2" />
-              Enzyklopädie
-            </Button>
+              <span className="font-medium">Enzyklopädie</span>
+            </button>
 
-            <Button
-              variant="secondary"
+            <button
               onClick={handleGoHome}
+              className="py-3 px-4 game-button-secondary flex items-center justify-center"
             >
               <Home className="w-4 h-4 mr-2" />
-              Startseite
-            </Button>
+              <span className="font-medium">Startseite</span>
+            </button>
           </div>
         </div>
       </div>

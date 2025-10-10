@@ -4,8 +4,7 @@
  */
 
 import React, { useEffect } from 'react';
-import { Card } from '../components/ui/Card';
-import { StatCard } from '../components/ui/StatCard';
+import { Progress } from '../components/ui/Progress';
 import { Trophy, Target, Flame, BarChart3 } from 'lucide-react';
 import { useUserStore } from '@quiz/shared/stores/userStore';
 import { useSettingsStore, setStorageService } from '@quiz/shared/stores/settingsStore';
@@ -61,7 +60,7 @@ export const ProfileScreen: React.FC = () => {
 
       <div className="p-4 space-y-6">
         {/* Level Progress */}
-        <Card className="p-6 game-card">
+        <div className="game-card p-6">
           <div className="flex items-center gap-4 mb-4">
             <Trophy className="w-8 h-8 text-accent" />
             <div className="flex-1">
@@ -71,62 +70,44 @@ export const ProfileScreen: React.FC = () => {
               </p>
             </div>
           </div>
-          <div className="w-full bg-secondary rounded-full h-3 overflow-hidden">
-            <div
-              className="bg-primary h-full transition-all"
-              style={{ width: `${Math.min(progressToNextLevel, 100)}%` }}
-            />
-          </div>
-        </Card>
+          <Progress value={Math.min(progressToNextLevel, 100)} className="h-3" />
+        </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 gap-4">
-          <StatCard
-            icon={<Target className="w-8 h-8 text-success" />}
-            value={`${accuracyPercentage}%`}
-            label="Glücks-Quote"
-          />
-          <StatCard
-            icon={<Flame className="w-8 h-8 text-accent" />}
-            value={userProfile.currentStreak}
-            label="Glückssträhne"
-          />
-          <StatCard
-            icon={<BarChart3 className="w-8 h-8 text-primary" />}
-            value={userProfile.totalPoints}
-            label="Punkte"
-          />
-          <StatCard
-            icon={<Trophy className="w-8 h-8 text-neutral" />}
-            value={userProfile.sessionsPlayed}
-            label="Sessions"
-          />
+          <div className="game-stat-card text-center">
+            <Target className="w-8 h-8 text-success mx-auto mb-3" />
+            <p className="text-3xl font-bold">{accuracyPercentage}%</p>
+            <p className="text-sm text-muted-foreground">Glücks-Quote</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              {userProfile.correctAnswers} / {userProfile.questionsAnswered} Zufallstreffer
+            </p>
+          </div>
+
+          <div className="game-stat-card text-center">
+            <Flame className="w-8 h-8 text-accent mx-auto mb-3" />
+            <p className="text-3xl font-bold">{userProfile.currentStreak}</p>
+            <p className="text-sm text-muted-foreground">Aktuelle Glückssträhne</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Rekord: {userProfile.longestStreak}
+            </p>
+          </div>
+
+          <div className="game-stat-card text-center">
+            <BarChart3 className="w-8 h-8 text-primary mx-auto mb-3" />
+            <p className="text-3xl font-bold">{userProfile.totalPoints}</p>
+            <p className="text-sm text-muted-foreground">Mitleids-Punkte</p>
+          </div>
+
+          <div className="game-stat-card text-center">
+            <Trophy className="w-8 h-8 text-neutral mx-auto mb-3" />
+            <p className="text-3xl font-bold">{userProfile.sessionsPlayed}</p>
+            <p className="text-sm text-muted-foreground">Sessions</p>
+          </div>
         </div>
 
-        {/* Stats Details */}
-        <Card className="p-6 game-card">
-          <h3 className="font-bold text-lg mb-4 flex items-center gap-3">
-            <BarChart3 className="w-6 h-6" />
-            Detaillierte Statistiken
-          </h3>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center p-3 bg-muted/30 rounded-xl">
-              <span className="font-medium">Fragen beantwortet</span>
-              <span className="font-bold">{userProfile.questionsAnswered}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-muted/30 rounded-xl">
-              <span className="font-medium">Richtige Antworten</span>
-              <span className="font-bold">{userProfile.correctAnswers}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-muted/30 rounded-xl">
-              <span className="font-medium">Beste Glückssträhne</span>
-              <span className="font-bold">{userProfile.longestStreak}</span>
-            </div>
-          </div>
-        </Card>
-
         {/* Achievements */}
-        <Card className="p-6 game-card">
+        <div className="game-card p-6">
           <h3 className="font-bold text-lg mb-4 flex items-center gap-3">
             <Trophy className="w-6 h-6" />
             Peinliche Errungenschaften
@@ -165,10 +146,10 @@ export const ProfileScreen: React.FC = () => {
               </div>
             ))}
           </div>
-        </Card>
+        </div>
 
         {/* Settings */}
-        <Card className="p-6 game-card">
+        <div className="game-card p-6">
           <h3 className="font-bold text-lg mb-4">⚙️ Einstellungen</h3>
           <div className="space-y-4">
             <div className="flex justify-between items-center p-3 bg-muted/30 rounded-xl">
@@ -208,7 +189,7 @@ export const ProfileScreen: React.FC = () => {
               </button>
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   );
