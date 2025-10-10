@@ -1,23 +1,22 @@
-import React from 'react';
+import { PlayScreen } from '../screens/PlayScreen';
+import { QuizCategory } from '@quiz/shared';
 
+/**
+ * PlayPage - Container for PlayScreen
+ * Provides store data and last category tracking
+ */
 export default function PlayPage() {
+  // TODO: Connect to category store when available
+  // For now, provide default unlocked category (GENERAL)
+  const unlockedCategories: QuizCategory[] = [QuizCategory.GENERAL];
+
+  // TODO: Track last played category in localStorage or store
+  const lastCategory = undefined;
+
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Spielen Page</h1>
-    </div>
+    <PlayScreen
+      unlockedCategories={unlockedCategories}
+      lastCategory={lastCategory}
+    />
   );
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: 'calc(100vh - 80px)',
-    backgroundColor: '#F6F7F9',
-  },
-  title: {
-    fontSize: '2rem',
-    color: '#169C8F',
-  },
-};

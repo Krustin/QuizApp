@@ -29,7 +29,8 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   const [pressed, setPressed] = React.useState(false);
 
-  const shadow = getShadowStyle(pressed ? elevation - 1 : elevation);
+  const shadowLevel = pressed ? Math.max(0, elevation - 1) as 0 | 1 | 2 | 3 | 4 : elevation;
+  const shadow = getShadowStyle(shadowLevel);
 
   const content = (
     <View
