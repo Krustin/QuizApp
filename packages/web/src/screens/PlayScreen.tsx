@@ -77,7 +77,7 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="min-h-screen bg-background pb-32">
       {/* Header */}
       <div className="bg-primary text-primary-foreground p-6 relative overflow-hidden">
         <div className="absolute top-0 right-0 text-6xl opacity-10 floating-element">

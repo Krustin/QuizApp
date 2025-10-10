@@ -135,7 +135,7 @@ export const QuizSessionScreen: React.FC = () => {
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="min-h-screen bg-background pb-32">
       {/* Header with progress */}
       <div className="bg-primary text-primary-foreground p-4">
         <div className="flex items-center justify-between mb-3">
