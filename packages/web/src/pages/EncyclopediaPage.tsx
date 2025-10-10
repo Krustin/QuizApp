@@ -1,23 +1,9 @@
-import React from 'react';
+import { EncyclopediaScreen } from '../screens/EncyclopediaScreen';
 
+/**
+ * EncyclopediaPage - Container for EncyclopediaScreen
+ * Shows user's collected encyclopedia entries with search/filter
+ */
 export default function EncyclopediaPage() {
-  return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Lexikon Page</h1>
-    </div>
-  );
+  return <EncyclopediaScreen />;
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: 'calc(100vh - 80px)',
-    backgroundColor: '#F6F7F9',
-  },
-  title: {
-    fontSize: '2rem',
-    color: '#169C8F',
-  },
-};

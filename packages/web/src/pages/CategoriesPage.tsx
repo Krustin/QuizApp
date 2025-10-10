@@ -1,23 +1,9 @@
-import React from 'react';
+import { CategoriesScreen } from '../screens/CategoriesScreen';
 
+/**
+ * CategoriesPage - Container for CategoriesScreen
+ * Shows all quiz categories with unlock/select functionality
+ */
 export default function CategoriesPage() {
-  return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Kategorien Page</h1>
-    </div>
-  );
+  return <CategoriesScreen />;
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: 'calc(100vh - 80px)',
-    backgroundColor: '#F6F7F9',
-  },
-  title: {
-    fontSize: '2rem',
-    color: '#169C8F',
-  },
-};
