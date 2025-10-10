@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #0B1F24;
+  background-color: #F6F7F9;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Quiz App Color System */
+  --primary: #169C8F;
+  --primary-dark: #0e7c71;
+  --accent: #FF6A5C;
+  --accent-dark: #e5534a;
+  --success: #2DC071;
+  --success-dark: #25a063;
+  --destructive: #FF4D4F;
+  --destructive-dark: #e53e3e;
+  --neutral: #6EC8BE;
+  --background: #F6F7F9;
+  --card: #ffffff;
+  --secondary: #E9EDF3;
+  --muted: #E9EDF3;
+  --foreground: #0B1F24;
+  --muted-foreground: #6B7280;
+  --border: rgba(11, 31, 36, 0.1);
+  --border-solid: #d1d5db;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* 2.5D Game Component Classes */
+@layer components {
+  /* Button Variants */
+  .game-button-primary {
+    @apply bg-[#169C8F] text-white border-transparent;
+    box-shadow: 0 4px 0 #0e7c71, 0 6px 12px rgba(22, 156, 143, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .game-button-primary:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 #0e7c71, 0 3px 6px rgba(22, 156, 143, 0.3);
+  }
+
+  .game-button-secondary {
+    @apply bg-white text-[#0B1F24] border-[#d1d5db];
+    box-shadow: 0 4px 0 #d1d5db, 0 6px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .game-button-secondary:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 #d1d5db, 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .game-button-accent {
+    @apply bg-[#FF6A5C] text-white border-transparent;
+    box-shadow: 0 4px 0 #e5534a, 0 6px 12px rgba(255, 106, 92, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .game-button-accent:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 #e5534a, 0 3px 6px rgba(255, 106, 92, 0.3);
+  }
+
+  /* Card Variants */
+  .game-card {
+    @apply bg-white border-2 border-[#d1d5db] rounded-2xl p-6;
+    box-shadow: 0 6px 0 #d1d5db, 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .game-card.cursor-pointer:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #d1d5db, 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .game-stat-card {
+    @apply bg-white border-2 border-[#d1d5db] rounded-2xl p-4;
+    box-shadow: 0 4px 0 #d1d5db, 0 6px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .game-category-card {
+    @apply bg-white border-2 border-[#d1d5db] rounded-2xl p-6;
+    box-shadow: 0 6px 0 #d1d5db, 0 8px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    transition: all 0.2s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  }
+
+  .game-category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 #d1d5db, 0 12px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .game-category-card:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 0 #d1d5db, 0 4px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .game-locked-card {
+    opacity: 0.6;
+    filter: grayscale(0.3);
+  }
+
+  /* Quiz Answer Options */
+  .game-quiz-option {
+    @apply bg-white border-2 border-[#d1d5db] rounded-2xl p-4 cursor-pointer;
+    box-shadow: 0 4px 0 #d1d5db, 0 6px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .game-quiz-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #d1d5db, 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .game-quiz-option:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 #d1d5db, 0 3px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  .game-quiz-option.correct {
+    @apply bg-[rgba(45,192,113,0.1)] border-[#2DC071];
+    box-shadow: 0 4px 0 #25a063, 0 6px 12px rgba(45, 192, 113, 0.2);
+  }
+
+  .game-quiz-option.incorrect {
+    @apply bg-[rgba(255,77,79,0.1)] border-[#FF4D4F];
+    box-shadow: 0 4px 0 #e53e3e, 0 6px 12px rgba(255, 77, 79, 0.2);
+  }
+
+  /* Navigation Item */
+  .game-nav-item {
+    @apply rounded-2xl transition-all duration-200;
+    transform: translateY(-1px);
+  }
+
+  .game-nav-item.active {
+    @apply bg-primary/10;
+    box-shadow: 0 3px rgba(22, 156, 143, 0.2), 0 4px 8px rgba(22, 156, 143, 0.15);
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+}
+
+.floating-element {
+  animation: float 3s ease-in-out infinite;
+}
