@@ -220,6 +220,9 @@ lerna-debug.log
 # ============================================
 # Project Specific
 # ============================================
+# Concept directory (reference only, not for production)
+Concept/
+
 # Question bank (if large, could be generated)
 # Uncomment if questions should be generated, not committed:
 # /packages/shared/data/questions/*.json
