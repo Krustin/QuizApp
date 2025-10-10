@@ -16,6 +16,9 @@ export * from './services/StreakManager';
 // Export utils
 export * from './utils';
 
+// Export theme
+export * from './theme';
+
 // Export game logic (placeholder for future game logic)
 // export * from './gameLogic';
 
