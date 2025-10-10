@@ -6,7 +6,6 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Play, Shuffle, Flame } from 'lucide-react';
-import { Button, Card, StatCard } from '../components/ui';
 import type { QuizCategory } from '@quiz/shared';
 
 // Note: Import stores directly from shared/src since they're not exported from main index
@@ -90,64 +89,56 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
       <div className="p-4 space-y-6">
         {/* Stats Cards - 2 columns */}
         <div className="grid grid-cols-2 gap-4">
-          <StatCard
-            icon={<Flame className="w-8 h-8 text-accent mx-auto" />}
-            value={currentStreak}
-            label="Glückssträhne"
-          />
-          <StatCard
-            icon={
-              <div className="w-8 h-8 mx-auto flex items-center justify-center">
-                <span className="text-2xl">🎭</span>
-              </div>
-            }
-            value={`Level ${level}`}
-            label="Versager-Grad"
-          />
+          <div className="game-stat-card text-center">
+            <Flame className="w-8 h-8 text-accent mx-auto mb-3" />
+            <p className="text-2xl font-bold">{currentStreak}</p>
+            <p className="text-sm text-muted-foreground">Glückssträhne</p>
+          </div>
+          <div className="game-stat-card text-center">
+            <div className="w-8 h-8 mx-auto flex items-center justify-center mb-3">
+              <span className="text-2xl">🎭</span>
+            </div>
+            <p className="text-2xl font-bold">Level {level}</p>
+            <p className="text-sm text-muted-foreground">Versager-Grad</p>
+          </div>
         </div>
 
         {/* Main Actions */}
         <div className="space-y-4">
           {/* Continue Last Category (if exists) */}
           {lastCategory && (
-            <Button
-              variant="primary"
-              fullWidth
+            <button
               onClick={() => handleStartQuiz(lastCategory as QuizCategory)}
-              className="py-6 px-6 flex items-center justify-center"
+              className="w-full py-6 px-6 game-button-primary flex items-center justify-center"
             >
               <Play className="w-6 h-6 mr-3" />
               <div className="flex-1 text-left">
                 <div className="text-lg font-bold">Weitermachen</div>
                 <div className="text-sm opacity-80">Letzte Schmach: {lastCategory}</div>
               </div>
-            </Button>
+            </button>
           )}
 
           {/* Random Quiz */}
-          <Button
-            variant="secondary"
-            fullWidth
+          <button
             onClick={handleRandomQuiz}
-            className="py-5 px-6 flex items-center justify-center"
+            className="w-full py-5 px-6 game-button-secondary flex items-center justify-center"
           >
             <Shuffle className="w-6 h-6 mr-3" />
             <span className="text-lg font-bold">Zufallsdemütigung</span>
-          </Button>
+          </button>
 
           {/* Browse Categories */}
-          <Button
-            variant="secondary"
-            fullWidth
+          <button
             onClick={handleBrowseCategories}
-            className="py-5 px-6 flex items-center justify-center"
+            className="w-full py-5 px-6 game-button-secondary flex items-center justify-center"
           >
             <span className="text-lg font-bold">Wissenslücken durchstöbern</span>
-          </Button>
+          </button>
         </div>
 
         {/* Tips Card */}
-        <Card className="p-6">
+        <div className="game-card">
           <h3 className="font-bold text-lg mb-3 flex items-center gap-3">
             <span className="text-2xl">🧠</span>
             Pseudo-Intelligenz-Tipp
@@ -155,7 +146,7 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
           <p className="text-muted-foreground">
             Jede zufällig richtige Antwort wird in deinem Angeber-Lexikon gespeichert.
           </p>
-        </Card>
+        </div>
 
         {/* No Ads Notice */}
         <div className="text-center py-6">

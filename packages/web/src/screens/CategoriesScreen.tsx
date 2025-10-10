@@ -76,8 +76,8 @@ export const CategoriesScreen: React.FC = () => {
   }, [loadCategoryAccess]);
 
   const handleCategorySelect = (category: QuizCategory) => {
-    // Navigate to play screen with selected category
-    navigate('/play', { state: { category } });
+    // Navigate directly to quiz screen with selected category
+    navigate('/quiz', { state: { category } });
   };
 
   const handleUnlock = async (category: QuizCategory) => {

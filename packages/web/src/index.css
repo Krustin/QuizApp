@@ -113,6 +113,11 @@ body {
     box-shadow: 0 3px 0 #d1d5db, 0 4px 8px rgba(0, 0, 0, 0.08);
   }
 
+  .game-locked-card {
+    opacity: 0.6;
+    filter: grayscale(0.3);
+  }
+
   /* Quiz Answer Options */
   .game-quiz-option {
     @apply bg-white border-2 border-[#d1d5db] rounded-2xl p-4 cursor-pointer;
@@ -138,6 +143,17 @@ body {
   .game-quiz-option.incorrect {
     @apply bg-[rgba(255,77,79,0.1)] border-[#FF4D4F];
     box-shadow: 0 4px 0 #e53e3e, 0 6px 12px rgba(255, 77, 79, 0.2);
+  }
+
+  /* Navigation Item */
+  .game-nav-item {
+    @apply rounded-2xl transition-all duration-200;
+    transform: translateY(-1px);
+  }
+
+  .game-nav-item.active {
+    @apply bg-primary/10;
+    box-shadow: 0 3px rgba(22, 156, 143, 0.2), 0 4px 8px rgba(22, 156, 143, 0.15);
   }
 }
 

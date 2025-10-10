@@ -23,9 +23,9 @@ export default function NavigationBar() {
             <Link
               key={item.path}
               to={item.path}
-              className={`flex-1 flex flex-col items-center justify-center py-3 px-2 mx-1 rounded-lg transition-colors ${
+              className={`flex-1 flex flex-col items-center justify-center py-3 px-2 mx-1 game-nav-item ${
                 isActive
-                  ? 'text-primary bg-primary/10'
+                  ? 'active text-primary'
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
               }`}
             >
