@@ -7,7 +7,7 @@ import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Play, Shuffle, Flame } from 'lucide-react';
 import { DailyChallenge } from '../components/DailyChallenge';
-import type { QuizCategory } from '@quiz/shared';
+import { QuizCategory } from '@quiz/shared';
 
 // Note: Import stores directly from shared/src since they're not exported from main index
 // This assumes the web package has access to shared source files
@@ -67,6 +67,14 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
     }
     const randomCategory = unlockedCategories[Math.floor(Math.random() * unlockedCategories.length)];
     navigate('/quiz', { state: { category: randomCategory } });
+  };
+
+  /**
+   * Start daily challenge (5 questions)
+   */
+  const handleDailyChallenge = () => {
+    // Use GENERAL category for daily challenge, mark as daily
+    navigate('/quiz', { state: { category: QuizCategory.GENERAL, isDailyChallenge: true } });
   };
 
   /**
@@ -139,7 +147,7 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
         </div>
 
         {/* Daily Challenge */}
-        <DailyChallenge onStartChallenge={handleRandomQuiz} />
+        <DailyChallenge onStartChallenge={handleDailyChallenge} />
 
         {/* Tips Card */}
         <div className="game-card">

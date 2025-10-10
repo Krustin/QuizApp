@@ -19,12 +19,16 @@ import { storageService } from '../services/StorageService';
 
 interface LocationState {
   category: QuizCategory;
+  isDailyChallenge?: boolean;
 }
 
 export const QuizSessionScreen: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { category } = (location.state as LocationState) || { category: QuizCategory.GENERAL };
+  const { category, isDailyChallenge = false } = (location.state as LocationState) || {
+    category: QuizCategory.GENERAL,
+    isDailyChallenge: false
+  };
 
   const {
     startSession,
@@ -50,10 +54,11 @@ export const QuizSessionScreen: React.FC = () => {
   useEffect(() => {
     const initSession = () => {
       try {
-        console.log('Starting quiz with category:', category);
+        console.log('Starting quiz with category:', category, 'isDailyChallenge:', isDailyChallenge);
 
-        // Get questions for this category (5 for daily challenge feel)
-        const selectedQuestions = questionSelector.getRandomQuestions(category, 5);
+        // Get questions for this category (5 for daily challenge, 12 for regular quiz)
+        const questionCount = isDailyChallenge ? 5 : 12;
+        const selectedQuestions = questionSelector.getRandomQuestions(category, questionCount);
         console.log('Got questions:', selectedQuestions.length);
 
         if (selectedQuestions.length === 0) {
@@ -119,7 +124,9 @@ export const QuizSessionScreen: React.FC = () => {
     } else {
       // Quiz complete - get session data before completing
       const session = currentSession;
-      if (!session) return;
+      if (!session) {
+        return;
+      }
 
       // Calculate results
       const correctAnswersData = session.questions
