@@ -1,0 +1,221 @@
+[
+  {
+    "id": "gen-001",
+    "category": "GENERAL",
+    "difficulty": "EASY",
+    "questionText": "Was ist die Hauptstadt von Deutschland?",
+    "correctAnswer": "Berlin",
+    "wrongAnswers": ["München", "Hamburg", "Köln"],
+    "tldr": "Berlin ist seit 1990 die Hauptstadt der Bundesrepublik Deutschland und gleichzeitig ein eigenes Bundesland.",
+    "funFact": "Berlin ist die einzige Stadt in Deutschland, die auch ein Bundesland ist.",
+    "source": "https://de.wikipedia.org/wiki/Berlin"
+  },
+  {
+    "id": "gen-002",
+    "category": "GENERAL",
+    "difficulty": "EASY",
+    "questionText": "Wie viele Kontinente gibt es auf der Erde?",
+    "correctAnswer": "7",
+    "wrongAnswers": ["5", "6", "8"],
+    "tldr": "Es gibt sieben Kontinente: Afrika, Antarktika, Asien, Australien, Europa, Nordamerika und Südamerika.",
+    "funFact": "Geologen diskutieren manchmal über Zealandia als achten 'verborgenen' Kontinent unter dem Pazifik.",
+    "source": "https://de.wikipedia.org/wiki/Kontinent"
+  },
+  {
+    "id": "gen-003",
+    "category": "GENERAL",
+    "difficulty": "EASY",
+    "questionText": "Welches Gas atmen Menschen hauptsächlich ein?",
+    "correctAnswer": "Stickstoff",
+    "wrongAnswers": ["Sauerstoff", "Kohlendioxid", "Helium"],
+    "tldr": "Die Erdatmosphäre besteht zu etwa 78% aus Stickstoff, nur 21% sind Sauerstoff - auch wenn wir letzteren zum Überleben brauchen.",
+    "funFact": "Wir atmen zwar hauptsächlich Stickstoff ein, aber unser Körper nutzt ihn so gut wie gar nicht.",
+    "source": "https://de.wikipedia.org/wiki/Erdatmosph%C3%A4re"
+  },
+  {
+    "id": "gen-004",
+    "category": "GENERAL",
+    "difficulty": "EASY",
+    "questionText": "Wie heißt der größte Ozean der Erde?",
+    "correctAnswer": "Pazifischer Ozean",
+    "wrongAnswers": ["Atlantischer Ozean", "Indischer Ozean", "Arktischer Ozean"],
+    "tldr": "Der Pazifik bedeckt etwa 165 Millionen Quadratkilometer und ist damit größer als alle Landmassen der Erde zusammen.",
+    "funFact": "Der Name 'Pazifik' bedeutet 'friedlich' - benannt von Magellan, der offenbar gutes Wetter hatte.",
+    "source": "https://de.wikipedia.org/wiki/Pazifischer_Ozean"
+  },
+  {
+    "id": "gen-005",
+    "category": "GENERAL",
+    "difficulty": "EASY",
+    "questionText": "Welches Tier ist das schnellste Landtier?",
+    "correctAnswer": "Gepard",
+    "wrongAnswers": ["Löwe", "Pferd", "Antilope"],
+    "tldr": "Geparden können Geschwindigkeiten von bis zu 120 km/h erreichen - allerdings nur für kurze Sprints von etwa 20-30 Sekunden.",
+    "funFact": "Geparden können nicht brüllen wie andere Großkatzen, sondern machen eher vogelartige Zwitschergeräusche.",
+    "source": "https://de.wikipedia.org/wiki/Gepard"
+  },
+  {
+    "id": "gen-006",
+    "category": "GENERAL",
+    "difficulty": "EASY",
+    "questionText": "Wie viele Bundesländer hat Deutschland?",
+    "correctAnswer": "16",
+    "wrongAnswers": ["14", "15", "17"],
+    "tldr": "Deutschland hat 16 Bundesländer, darunter drei Stadtstaaten: Berlin, Hamburg und Bremen.",
+    "funFact": "Bremen ist eigentlich ein Zwei-Städte-Staat, bestehend aus Bremen und Bremerhaven.",
+    "source": "https://de.wikipedia.org/wiki/Land_(Deutschland)"
+  },
+  {
+    "id": "gen-007",
+    "category": "GENERAL",
+    "difficulty": "EASY",
+    "questionText": "In welchem Jahr fiel die Berliner Mauer?",
+    "correctAnswer": "1989",
+    "wrongAnswers": ["1987", "1990", "1991"],
+    "tldr": "Die Berliner Mauer fiel am 9. November 1989 nach 28 Jahren der Teilung - ein historischer Moment für Deutschland und Europa.",
+    "funFact": "Die Mauer fiel durch eine missverständliche Pressekonferenz: Ein Funktionär verkündete versehentlich sofortige Reisefreiheit.",
+    "source": "https://de.wikipedia.org/wiki/Berliner_Mauer"
+  },
+  {
+    "id": "gen-008",
+    "category": "GENERAL",
+    "difficulty": "EASY",
+    "questionText": "Welcher Planet ist der Sonne am nächsten?",
+    "correctAnswer": "Merkur",
+    "wrongAnswers": ["Venus", "Mars", "Erde"],
+    "tldr": "Merkur ist mit durchschnittlich 58 Millionen Kilometern der sonnennächste Planet und hat die kürzeste Umlaufzeit um die Sonne.",
+    "funFact": "Trotz der Nähe zur Sonne ist Merkur nicht der heißeste Planet - Venus ist heißer dank ihres Treibhauseffekts.",
+    "source": "https://de.wikipedia.org/wiki/Merkur_(Planet)"
+  },
+  {
+    "id": "gen-009",
+    "category": "GENERAL",
+    "difficulty": "MEDIUM",
+    "questionText": "Welcher Berg ist der höchste in Deutschland?",
+    "correctAnswer": "Zugspitze",
+    "wrongAnswers": ["Watzmann", "Feldberg", "Brocken"],
+    "tldr": "Die Zugspitze ist mit 2.962 Metern der höchste Berg Deutschlands und liegt im Wettersteingebirge an der Grenze zu Österreich.",
+    "funFact": "Auf der Zugspitze gibt es drei Gletscher, die allerdings durch den Klimawandel stark schrumpfen.",
+    "source": "https://de.wikipedia.org/wiki/Zugspitze"
+  },
+  {
+    "id": "gen-010",
+    "category": "GENERAL",
+    "difficulty": "MEDIUM",
+    "questionText": "Wer schrieb das Drama 'Faust'?",
+    "correctAnswer": "Johann Wolfgang von Goethe",
+    "wrongAnswers": ["Friedrich Schiller", "Heinrich Heine", "Bertolt Brecht"],
+    "tldr": "Goethe arbeitete fast 60 Jahre an 'Faust' - den ersten Teil vollendete er 1806, den zweiten Teil erst kurz vor seinem Tod 1832.",
+    "funFact": "Goethe begann 'Faust' mit 23 Jahren und vollendete ihn mit 82 - ein lebenslanges Projekt.",
+    "source": "https://de.wikipedia.org/wiki/Faust._Eine_Trag%C3%B6die."
+  },
+  {
+    "id": "gen-011",
+    "category": "GENERAL",
+    "difficulty": "MEDIUM",
+    "questionText": "Welches chemische Element hat das Symbol 'Au'?",
+    "correctAnswer": "Gold",
+    "wrongAnswers": ["Silber", "Aluminium", "Argon"],
+    "tldr": "Das Symbol 'Au' kommt vom lateinischen 'Aurum'. Gold ist eines der ersten von Menschen genutzten Metalle.",
+    "funFact": "Alles Gold der Welt würde in einen Würfel mit etwa 21 Metern Kantenlänge passen.",
+    "source": "https://de.wikipedia.org/wiki/Gold"
+  },
+  {
+    "id": "gen-012",
+    "category": "GENERAL",
+    "difficulty": "MEDIUM",
+    "questionText": "Wie lange dauerte der Hundertjährige Krieg?",
+    "correctAnswer": "116 Jahre",
+    "wrongAnswers": ["100 Jahre", "99 Jahre", "150 Jahre"],
+    "tldr": "Der sogenannte Hundertjährige Krieg zwischen England und Frankreich dauerte von 1337 bis 1453 - also 116 Jahre. Ironie der Geschichte.",
+    "funFact": "Johanna von Orléans spielte eine entscheidende Rolle im Krieg, obwohl sie nur zwei Jahre aktiv war.",
+    "source": "https://de.wikipedia.org/wiki/Hundertj%C3%A4hriger_Krieg"
+  },
+  {
+    "id": "gen-013",
+    "category": "GENERAL",
+    "difficulty": "MEDIUM",
+    "questionText": "Welcher Fluss fließt durch die meisten Länder?",
+    "correctAnswer": "Donau",
+    "wrongAnswers": ["Rhein", "Nil", "Amazonas"],
+    "tldr": "Die Donau durchfließt oder berührt 10 Länder: Deutschland, Österreich, Slowakei, Ungarn, Kroatien, Serbien, Rumänien, Bulgarien, Moldawien und Ukraine.",
+    "funFact": "Die Donau ist der einzige größere Fluss Europas, der von West nach Ost fließt.",
+    "source": "https://de.wikipedia.org/wiki/Donau"
+  },
+  {
+    "id": "gen-014",
+    "category": "GENERAL",
+    "difficulty": "MEDIUM",
+    "questionText": "Wie viele Tasten hat ein Standard-Klavier?",
+    "correctAnswer": "88",
+    "wrongAnswers": ["76", "92", "100"],
+    "tldr": "Ein modernes Klavier hat 88 Tasten: 52 weiße und 36 schwarze. Dieser Standard wurde um 1880 etabliert.",
+    "funFact": "Die ersten Klaviere hatten nur 60 Tasten - Komponisten wie Beethoven forderten immer mehr Tonumfang.",
+    "source": "https://de.wikipedia.org/wiki/Klavier"
+  },
+  {
+    "id": "gen-015",
+    "category": "GENERAL",
+    "difficulty": "MEDIUM",
+    "questionText": "Welches Organ produziert Insulin im menschlichen Körper?",
+    "correctAnswer": "Bauchspeicheldrüse",
+    "wrongAnswers": ["Leber", "Niere", "Milz"],
+    "tldr": "Die Bauchspeicheldrüse (Pankreas) produziert Insulin in speziellen Zellen, den sogenannten Langerhans-Inseln.",
+    "funFact": "Insulin wurde erst 1921 entdeckt - vorher war Diabetes Typ 1 ein Todesurteil.",
+    "source": "https://de.wikipedia.org/wiki/Insulin"
+  },
+  {
+    "id": "gen-016",
+    "category": "GENERAL",
+    "difficulty": "MEDIUM",
+    "questionText": "Welche Stadt ist NICHT eine der drei Hansestädte in Deutschland?",
+    "correctAnswer": "Lübeck",
+    "wrongAnswers": ["Bremen", "Hamburg", "Rostock"],
+    "tldr": "Eigentlich eine Trickfrage: Es gibt nur zwei 'Freie Hansestädte' (Bremen und Hamburg), nicht drei. Lübeck ist zwar historisch bedeutsam, trägt den Titel aber nicht mehr offiziell.",
+    "funFact": "Lübeck war bis 1937 ein eigener Stadtstaat und hieß offiziell 'Freie und Hansestadt Lübeck'.",
+    "source": "https://de.wikipedia.org/wiki/Hansestadt"
+  },
+  {
+    "id": "gen-017",
+    "category": "GENERAL",
+    "difficulty": "HARD",
+    "questionText": "Wie heißt die kleinste Knochenstruktur im menschlichen Körper?",
+    "correctAnswer": "Steigbügel (Stapes)",
+    "wrongAnswers": ["Hammer (Malleus)", "Amboss (Incus)", "Sesambein"],
+    "tldr": "Der Steigbügel (Stapes) im Mittelohr ist nur etwa 3 mm groß und überträgt Schallschwingungen vom Trommelfell zum Innenohr.",
+    "funFact": "Alle drei kleinsten Knochen befinden sich im Ohr: Hammer, Amboss und Steigbügel - benannt nach ihrer Form.",
+    "source": "https://de.wikipedia.org/wiki/Steigb%C3%BCgel_(Anatomie)"
+  },
+  {
+    "id": "gen-018",
+    "category": "GENERAL",
+    "difficulty": "HARD",
+    "questionText": "Wer erfand das Periodensystem der Elemente?",
+    "correctAnswer": "Dmitri Mendelejew",
+    "wrongAnswers": ["Marie Curie", "Antoine Lavoisier", "John Dalton"],
+    "tldr": "Der russische Chemiker Dmitri Mendelejew veröffentlichte 1869 das erste weithin anerkannte Periodensystem und sagte sogar die Eigenschaften noch unentdeckter Elemente korrekt voraus.",
+    "funFact": "Mendelejew soll das Periodensystem im Traum gesehen haben, nachdem er tagelang daran gearbeitet hatte.",
+    "source": "https://de.wikipedia.org/wiki/Dmitri_Iwanowitsch_Mendelejew"
+  },
+  {
+    "id": "gen-019",
+    "category": "GENERAL",
+    "difficulty": "HARD",
+    "questionText": "In welchem Jahr wurde die Gutenberg-Bibel gedruckt?",
+    "correctAnswer": "1455",
+    "wrongAnswers": ["1440", "1475", "1492"],
+    "tldr": "Die Gutenberg-Bibel, auch 42-zeilige Bibel genannt, wurde um 1455 fertiggestellt und gilt als erstes bedeutendes mit beweglichen Lettern gedrucktes Buch im Abendland.",
+    "funFact": "Von den ursprünglich etwa 180 gedruckten Exemplaren existieren heute noch 49 - einige sind Millionen wert.",
+    "source": "https://de.wikipedia.org/wiki/Gutenberg-Bibel"
+  },
+  {
+    "id": "gen-020",
+    "category": "GENERAL",
+    "difficulty": "HARD",
+    "questionText": "Wie lautet die Quadratwurzel von 169?",
+    "correctAnswer": "13",
+    "wrongAnswers": ["11", "12", "14"],
+    "tldr": "13 × 13 = 169. Das ist einfache Mathematik, aber man muss es halt wissen oder schnell im Kopf rechnen können.",
+    "funFact": "169 ist eine der wenigen dreistelligen Zahlen, deren Quadratwurzel eine ganze Zahl ist - perfekte Quadrate sind seltener als man denkt."
+  }
+]

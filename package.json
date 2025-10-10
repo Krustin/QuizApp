@@ -1,0 +1,53 @@
+{
+  "name": "quiz-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "German-language sarcastic quiz app - Monorepo",
+  "workspaces": [
+    "packages/mobile",
+    "packages/web",
+    "packages/shared"
+  ],
+  "scripts": {
+    "mobile": "cd packages/mobile && npm start",
+    "mobile:ios": "cd packages/mobile && npm run ios",
+    "mobile:android": "cd packages/mobile && npm run android",
+    "web": "cd packages/web && npm run dev",
+    "web:build": "cd packages/web && npm run build",
+    "shared:build": "cd packages/shared && npm run build",
+    "shared:watch": "cd packages/shared && npm run dev",
+    "install:all": "npm install && npm install --prefix packages/mobile && npm install --prefix packages/web && npm install --prefix packages/shared",
+    "clean": "rm -rf node_modules packages/*/node_modules packages/*/dist",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\""
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/quiz-app.git"
+  },
+  "keywords": [
+    "quiz",
+    "trivia",
+    "react-native",
+    "expo",
+    "vite",
+    "german",
+    "monorepo"
+  ],
+  "author": "",
+  "license": "MIT"
+}
