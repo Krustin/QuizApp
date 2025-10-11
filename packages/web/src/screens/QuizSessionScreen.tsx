@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '../components/ui';
 import { QuizOption } from '../components/ui/QuizOption';
-import { QuizCategory, SoundEffect, QuizmasterService } from '@quiz/shared';
+import { QuizCategory, SoundEffect, QuizmasterService, DifficultyLevel } from '@quiz/shared';
 
 // Import stores and services from shared source
 // TODO: Update when properly exported from @quiz/shared
@@ -144,7 +144,7 @@ export const QuizSessionScreen: React.FC = () => {
     const message = QuizmasterService.getComment({
       isCorrect,
       currentStreak,
-      difficulty: question.difficulty,
+      difficulty: question.difficulty.toUpperCase() as DifficultyLevel,
       scorePercentage,
     });
     setQuizmasterMessage(message);
