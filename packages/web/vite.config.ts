@@ -11,4 +11,10 @@ export default defineConfig({
       '@quiz/shared': path.resolve(__dirname, '../shared/src'),
     },
   },
+  server: {
+    fs: {
+      // Allow serving files from the monorepo root
+      allow: ['..'],
+    },
+  },
 })
