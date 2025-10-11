@@ -140,11 +140,18 @@ export const QuizSessionScreen: React.FC = () => {
       ? (session.score / session.questions.length) * 100
       : 0;
 
+    // Map lowercase difficulty to DifficultyLevel enum
+    const difficultyMap: Record<string, DifficultyLevel> = {
+      'easy': DifficultyLevel.EASY,
+      'medium': DifficultyLevel.MEDIUM,
+      'hard': DifficultyLevel.HARD,
+    };
+
     // Show context-aware quizmaster feedback
     const message = QuizmasterService.getComment({
       isCorrect,
       currentStreak,
-      difficulty: question.difficulty.toUpperCase() as DifficultyLevel,
+      difficulty: difficultyMap[question.difficulty],
       scorePercentage,
     });
     setQuizmasterMessage(message);
