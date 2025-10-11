@@ -11,6 +11,14 @@
     "./stores/*": {
       "types": "./dist/stores/*.d.ts",
       "default": "./dist/stores/*.js"
+    },
+    "./constants/*": {
+      "types": "./dist/constants/*.d.ts",
+      "default": "./dist/constants/*.js"
+    },
+    "./services/*": {
+      "types": "./dist/services/*.d.ts",
+      "default": "./dist/services/*.js"
     }
   },
   "scripts": {
