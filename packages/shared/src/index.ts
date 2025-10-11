@@ -21,6 +21,9 @@ export * from './utils';
 // Export theme
 export * from './theme';
 
+// Note: Stores are not exported from main index due to naming conflicts
+// Import stores directly: import { useUserStore } from '@quiz/shared/stores/userStore';
+
 // Export game logic (placeholder for future game logic)
 // export * from './gameLogic';
 
