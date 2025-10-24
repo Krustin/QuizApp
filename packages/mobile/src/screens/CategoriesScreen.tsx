@@ -25,7 +25,7 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Categories'>;
 
-// Category metadata mapping
+// Category metadata mapping - Phase 4: Added surreal categories
 const CATEGORY_METADATA = {
   [QuizCategory.GENERAL]: {
     title: 'Nutzloses Grundwissen',
@@ -41,12 +41,26 @@ const CATEGORY_METADATA = {
     questionsCount: 60,
     price: '2,99 €',
   },
+  [QuizCategory.SKURRILES_SURREAL]: {
+    title: 'Skurriles für Ahnungslose',
+    description: 'Maximale Verwirrung mit surrealen Absurditäten',
+    icon: '🎭',
+    questionsCount: 50,
+    price: undefined, // Unlocked by default for testing
+  },
   [QuizCategory.WISSENSCHAFT]: {
     title: 'Pseudo-Wissenschaft',
     description: 'Wenn Physik auf deine Küche trifft',
     icon: '🔬',
     questionsCount: 60,
     price: '2,99 €',
+  },
+  [QuizCategory.WISSENSCHAFT_SURREAL]: {
+    title: 'Wissenschaft für Schulabbrecher',
+    description: 'Physik und Chemie mit maximalem Sarkasmus',
+    icon: '⚗️',
+    questionsCount: 50,
+    price: undefined, // Unlocked by default for testing
   },
   [QuizCategory.GESCHICHTE]: {
     title: 'Alte Kamellen',

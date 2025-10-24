@@ -108,7 +108,7 @@ export const QuizSessionScreen: React.FC = () => {
     setSelectedAnswerIndex(answerIndex);
     setIsRevealed(true);
 
-    const isCorrect = answerIndex === question.correctAnswer;
+    const isCorrect = answerIndex === question.correctIndex; // Phase 4: Updated to correctIndex
     const timeSpent = Date.now() - startTime;
 
     // Play sound effect based on correctness
@@ -140,18 +140,22 @@ export const QuizSessionScreen: React.FC = () => {
       ? (session.score / session.questions.length) * 100
       : 0;
 
-    // Map lowercase difficulty to DifficultyLevel enum
-    const difficultyMap: Record<string, DifficultyLevel> = {
-      'easy': DifficultyLevel.EASY,
-      'medium': DifficultyLevel.MEDIUM,
-      'hard': DifficultyLevel.HARD,
-    };
+    // Phase 4: Map numeric difficulty (1-5) to DifficultyLevel enum
+    // 1-2 = EASY, 3 = MEDIUM, 4-5 = HARD
+    let difficultyLevel: DifficultyLevel;
+    if (question.difficulty <= 2) {
+      difficultyLevel = DifficultyLevel.EASY;
+    } else if (question.difficulty === 3) {
+      difficultyLevel = DifficultyLevel.MEDIUM;
+    } else {
+      difficultyLevel = DifficultyLevel.HARD;
+    }
 
     // Show context-aware quizmaster feedback
     const message = QuizmasterService.getComment({
       isCorrect,
       currentStreak,
-      difficulty: difficultyMap[question.difficulty],
+      difficulty: difficultyLevel,
       scorePercentage,
     });
     setQuizmasterMessage(message);
@@ -257,7 +261,7 @@ export const QuizSessionScreen: React.FC = () => {
               option={option}
               index={index}
               isSelected={selectedAnswerIndex === index}
-              isCorrect={index === question.correctAnswer}
+              isCorrect={index === question.correctIndex} {/* Phase 4: Updated to correctIndex */}
               isRevealed={isRevealed}
               onSelect={() => handleAnswerSelect(index)}
               disabled={isRevealed}
