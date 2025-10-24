@@ -261,7 +261,7 @@ export const QuizSessionScreen: React.FC = () => {
               option={option}
               index={index}
               isSelected={selectedAnswerIndex === index}
-              isCorrect={index === question.correctIndex} {/* Phase 4: Updated to correctIndex */}
+              isCorrect={index === question.correctIndex}
               isRevealed={isRevealed}
               onSelect={() => handleAnswerSelect(index)}
               disabled={isRevealed}
