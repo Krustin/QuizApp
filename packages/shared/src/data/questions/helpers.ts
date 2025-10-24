@@ -161,14 +161,14 @@ function shuffleArray<T>(array: T[]): T[] {
  * @returns New question with shuffled options
  */
 export function shuffleQuestionOptions(question: Question): Question {
-  const correctAnswerText = question.options[question.correctAnswer];
+  const correctAnswerText = question.options[question.correctIndex]; // Phase 5: Updated to correctIndex
   const shuffled = shuffleArray(question.options);
   const newCorrectIndex = shuffled.indexOf(correctAnswerText);
 
   return {
     ...question,
     options: shuffled,
-    correctAnswer: newCorrectIndex
+    correctIndex: newCorrectIndex // Phase 5: Updated to correctIndex
   };
 }
 

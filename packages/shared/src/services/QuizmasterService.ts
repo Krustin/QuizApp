@@ -243,12 +243,13 @@ export class QuizmasterService {
 
   /**
    * Backwards compatible: Get simple comment (no context)
+   * Phase 5: Fixed to use numeric difficulty
    */
   static getSimpleComment(isCorrect: boolean): string {
     return this.getComment({
       isCorrect,
       currentStreak: 0,
-      difficulty: 'MEDIUM' as DifficultyLevel,
+      difficulty: 3, // Medium difficulty (1-5 scale)
       scorePercentage: 50,
     });
   }
