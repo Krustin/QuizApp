@@ -235,7 +235,7 @@ export const useQuizStore = create<QuizStore>((set, get) => ({
       // Save session to storage
       await storageService.saveSession(completedSession);
 
-      // Add correct answers to encyclopedia
+      // Add correct answers to encyclopedia (Phase 3: Updated for new format)
       const correctQuestions = currentSession.questions
         .filter(q => q.isCorrect)
         .map(q => questions.find(qu => qu.id === q.questionId))
@@ -246,8 +246,8 @@ export const useQuizStore = create<QuizStore>((set, get) => ({
           entryId: `entry-${q.id}`,
           questionId: q.id,
           questionText: q.question,
-          correctAnswer: q.options[q.correctAnswer],
-          tldr: q.explanation,
+          correctAnswer: q.options[q.correctIndex], // Phase 3: Updated from correctAnswer to correctIndex
+          tldr: q.explanation || q.question, // Phase 3: Handle optional explanation
           funFact: q.funFact,
           category: currentSession.categoryId,
           unlockedAt: new Date(),

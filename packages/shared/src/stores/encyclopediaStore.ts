@@ -183,7 +183,12 @@ export const createEncyclopediaStore = (storageService: StorageService) => {
 
     entriesByCategory: () => {
       const { entries } = get();
+      // Phase 3: Updated to include new surreal categories
       const categoryCount: Record<QuizCategory, number> = {
+        // New surreal categories
+        [QuizCategory.SKURRILES_SURREAL]: 0,
+        [QuizCategory.WISSENSCHAFT_SURREAL]: 0,
+        // Legacy categories
         [QuizCategory.GENERAL]: 0,
         [QuizCategory.SKURRILES]: 0,
         [QuizCategory.WISSENSCHAFT]: 0,

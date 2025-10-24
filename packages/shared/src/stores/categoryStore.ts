@@ -74,10 +74,28 @@ export interface CategoryStoreState {
 }
 
 /**
- * Initial category access state
- * GENERAL is unlocked by default, all others are locked
+ * Initial category access state - UPDATED (Phase 3)
+ * New surreal categories are unlocked by default for testing
+ * Legacy categories remain locked until IAP
  */
 const INITIAL_CATEGORY_ACCESS: CategoryAccess[] = [
+  // New surreal categories (unlocked by default for testing)
+  {
+    categoryId: QuizCategory.SKURRILES_SURREAL,
+    isUnlocked: true, // Phase 3: Unlocked by default
+    purchasedAt: new Date(),
+    questionsAnswered: 0,
+    correctAnswers: 0,
+  },
+  {
+    categoryId: QuizCategory.WISSENSCHAFT_SURREAL,
+    isUnlocked: true, // Phase 3: Unlocked by default
+    purchasedAt: new Date(),
+    questionsAnswered: 0,
+    correctAnswers: 0,
+  },
+
+  // Legacy categories (for backward compatibility)
   {
     categoryId: QuizCategory.GENERAL,
     isUnlocked: true,
