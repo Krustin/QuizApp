@@ -1,14 +1,12 @@
 /**
- * QuizmasterService - Context-aware sarcastic comment generator
+ * QuizmasterService - Context-aware sarcastic comment generator (Phase 2 Updated)
  *
  * Generates German sarcastic comments based on:
  * - Answer correctness
  * - Current streak
- * - Question difficulty
+ * - Question difficulty (1-5 scale)
  * - Score performance
  */
-
-import type { DifficultyLevel } from '../models/Enums';
 
 export enum CommentIntensity {
   MILD = 'mild',
@@ -19,7 +17,7 @@ export enum CommentIntensity {
 export interface CommentContext {
   isCorrect: boolean;
   currentStreak: number;
-  difficulty: DifficultyLevel;
+  difficulty: 1 | 2 | 3 | 4 | 5; // Phase 2: Updated from DifficultyLevel to numeric
   scorePercentage: number; // 0-100
 }
 

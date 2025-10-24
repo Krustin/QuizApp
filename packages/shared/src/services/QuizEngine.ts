@@ -58,10 +58,10 @@ export class QuizEngine {
    * Validate if selected answer is correct
    *
    * Checks if the selected answer index matches the correct answer index.
-   * New format uses index-based validation (0-3 for A-D options).
+   * Supports both 3-option and 4-option questions.
    *
    * @param question - The question being answered
-   * @param selectedAnswerIndex - The index of the answer selected by user (0-3)
+   * @param selectedAnswerIndex - The index of the answer selected by user (0-2 for 3 options, 0-3 for 4 options)
    * @returns True if answer is correct, false otherwise
    *
    * @example
@@ -72,14 +72,14 @@ export class QuizEngine {
     if (
       selectedAnswerIndex < 0 ||
       selectedAnswerIndex >= question.options.length ||
-      question.correctAnswer < 0 ||
-      question.correctAnswer >= question.options.length
+      question.correctIndex < 0 ||
+      question.correctIndex >= question.options.length
     ) {
       return false;
     }
 
-    // Simple index comparison
-    return selectedAnswerIndex === question.correctAnswer;
+    // Simple index comparison (Phase 2: updated from correctAnswer to correctIndex)
+    return selectedAnswerIndex === question.correctIndex;
   }
 
   /**
@@ -91,7 +91,7 @@ export class QuizEngine {
    *
    * @param session - Current quiz session
    * @param question - The question answered
-   * @param selectedAnswerIndex - The index of the answer selected (0-3)
+   * @param selectedAnswerIndex - The index of the answer selected (0-2 for 3 options, 0-3 for 4 options)
    * @param timeSpent - Time spent in milliseconds
    * @param isCorrect - Whether answer was correct
    * @returns Updated session with new answer recorded
