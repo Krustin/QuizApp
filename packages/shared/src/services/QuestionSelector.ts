@@ -1,18 +1,19 @@
 /**
- * QuestionSelector Service
+ * QuestionSelector Service - UPDATED (Phase 2)
  *
  * Handles question selection for quiz sessions.
- * Uses the new question bank with smart category-based selection.
+ * Uses the new question bank with category ID-based selection.
  *
  * Key features:
- * - Smart question selection with difficulty distribution (50% easy, 30% medium, 20% hard)
+ * - Works with categoryId instead of display names
+ * - Supports both 3 and 4 option questions
+ * - Smart difficulty distribution (1-5 scale)
  * - Exclude recently asked questions
- * - Options pre-shuffled in question bank
  * - Proper fallback handling for limited question pools
  */
 
 import type { Question } from '../models';
-import { QuizCategory } from '../models';
+import { QuizCategory, getCategoryDisplayName } from '../models';
 import { getQuestionsByCategory, shuffleQuestionOptions } from '../data/questions';
 
 /**
@@ -22,12 +23,11 @@ export class QuestionSelector {
   /**
    * Get random questions from a category with smart difficulty distribution
    *
-   * Uses the new question bank helper with automatic difficulty mixing:
-   * - 50% easy questions
-   * - 30% medium questions
-   * - 20% hard questions
+   * UPDATED (Phase 2): Now works with categoryId instead of display names
+   * Supports both 3 and 4 option questions
+   * Handles 1-5 difficulty scale
    *
-   * @param category - The quiz category to select questions from
+   * @param category - The quiz category to select questions from (enum value is the categoryId)
    * @param count - Number of questions to select (default 12)
    * @param excludeIds - Optional array of question IDs to exclude (recently asked)
    * @returns Array of randomly selected questions with shuffled options
@@ -35,12 +35,12 @@ export class QuestionSelector {
    *
    * @example
    * ```typescript
-   * // Get 12 random general questions
-   * const questions = questionSelector.getRandomQuestions(QuizCategory.GENERAL);
+   * // Get 12 random questions from skurriles category
+   * const questions = questionSelector.getRandomQuestions(QuizCategory.SKURRILES_SURREAL);
    *
    * // Get 5 questions, excluding recently asked ones
    * const questions = questionSelector.getRandomQuestions(
-   *   QuizCategory.GENERAL,
+   *   QuizCategory.WISSENSCHAFT_SURREAL,
    *   5,
    *   ['q1', 'q2', 'q3']
    * );
@@ -51,20 +51,31 @@ export class QuestionSelector {
     count: number = 12,
     excludeIds?: string[]
   ): Question[] {
-    // Map QuizCategory enum to category name string
-    const categoryName = this.getCategoryName(category);
+    // Phase 2: Use categoryId directly (enum value is the categoryId)
+    // For backward compatibility, also try display name lookup
+    const categoryId = category; // Enum value IS the categoryId now
+    const categoryDisplayName = getCategoryDisplayName(categoryId);
 
-    // Use the new smart selection from question bank
-    const selectedQuestions = getQuestionsByCategory(
-      categoryName,
+    // Try with categoryId first, then fall back to display name for legacy questions
+    let selectedQuestions = getQuestionsByCategory(
+      categoryId,
       count,
       excludeIds || []
     );
 
-    // Throw error if no questions available
+    // Fallback: try with display name if no questions found with ID
+    if (selectedQuestions.length === 0) {
+      selectedQuestions = getQuestionsByCategory(
+        categoryDisplayName,
+        count,
+        excludeIds || []
+      );
+    }
+
+    // Throw error if still no questions available
     if (selectedQuestions.length === 0) {
       throw new Error(
-        `No questions available for category: ${category}${
+        `No questions available for category: ${categoryDisplayName} (${category})${
           excludeIds && excludeIds.length > 0
             ? ' (after excluding recently asked questions)'
             : ''
@@ -77,21 +88,12 @@ export class QuestionSelector {
   }
 
   /**
-   * Map QuizCategory enum to category name string
-   * @private
+   * Get category display name for UI
+   * @param category - The quiz category enum
+   * @returns User-friendly display name in German
    */
-  private getCategoryName(category: QuizCategory): string {
-    // Map QuizCategory enum to question bank category names
-    const categoryMap: Record<QuizCategory, string> = {
-      [QuizCategory.GENERAL]: 'Skurriles Wissen', // Default category with most questions
-      [QuizCategory.SKURRILES]: 'Skurriles Wissen',
-      [QuizCategory.WISSENSCHAFT]: 'Wissenschaft & Alltag',
-      [QuizCategory.GESCHICHTE]: 'Geschichte',
-      [QuizCategory.POPKULTUR]: 'Popkultur',
-      [QuizCategory.TIERWISSEN]: 'Tiere',
-      [QuizCategory.TECHNIK]: 'Technik',
-    };
-    return categoryMap[category] || 'Skurriles Wissen';
+  getCategoryDisplayName(category: QuizCategory): string {
+    return getCategoryDisplayName(category);
   }
 
 }

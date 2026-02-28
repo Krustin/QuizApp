@@ -94,7 +94,7 @@ export default function QuizSessionScreen({ route, navigation }: QuizSessionScre
     setSelectedAnswerIndex(answerIndex);
     setIsRevealed(true);
 
-    const isCorrect = answerIndex === question.correctAnswer;
+    const isCorrect = answerIndex === question.correctIndex; // Phase 4: Updated to correctIndex
     const timeSpent = Date.now() - startTime;
 
     // Record answer in store (now stores actual text from selected option)
@@ -175,7 +175,7 @@ export default function QuizSessionScreen({ route, navigation }: QuizSessionScre
                 option={option}
                 index={index}
                 isSelected={selectedAnswerIndex === index}
-                isCorrect={index === question.correctAnswer}
+                isCorrect={index === question.correctIndex} {/* Phase 4: Updated to correctIndex */}
                 isRevealed={isRevealed}
                 onSelect={() => handleAnswerSelect(index)}
                 disabled={isRevealed}

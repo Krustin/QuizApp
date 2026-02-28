@@ -16,3 +16,18 @@ export * from './Session';
 export * from './Encyclopedia';
 export * from './Achievement';
 export * from './Category';
+
+// Helper functions (Phase 1 Migration)
+export {
+  getDifficultyLabel,
+  getDifficultyFromString,
+  getStringFromDifficulty,
+  convertLegacyQuestion,
+  convertToLegacyQuestion,
+  validateQuestion,
+} from './Question';
+
+export {
+  getCategoryDisplayName,
+  CATEGORY_DISPLAY_NAMES,
+} from './Enums';

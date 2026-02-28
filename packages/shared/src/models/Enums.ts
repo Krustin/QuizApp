@@ -1,9 +1,14 @@
 /**
- * Quiz category enumeration
- * Defines all 7 quiz categories available in the app
- * GENERAL is free and unlocked by default, others require IAP
+ * Quiz category enumeration - UPDATED (Phase 1 Migration)
+ * Defines quiz categories with their full IDs
+ * Categories now use descriptive IDs instead of short codes
  */
 export enum QuizCategory {
+  // New surreal categories (with full descriptive IDs)
+  SKURRILES_SURREAL = 'SKURRILES_FUER_AHNUNGSLOSE_SURREAL',
+  WISSENSCHAFT_SURREAL = 'WISSENSCHAFT_FUER_SCHULABBRECHER_SURREAL',
+
+  // Legacy short-form categories (kept for backward compatibility)
   GENERAL = 'GENERAL',
   SKURRILES = 'SKURRILES',
   WISSENSCHAFT = 'WISSENSCHAFT',
@@ -11,6 +16,32 @@ export enum QuizCategory {
   POPKULTUR = 'POPKULTUR',
   TIERWISSEN = 'TIERWISSEN',
   TECHNIK = 'TECHNIK',
+}
+
+/**
+ * Category display names mapping
+ * Maps category IDs to user-friendly German display names
+ */
+export const CATEGORY_DISPLAY_NAMES: Record<string, string> = {
+  // New surreal categories
+  'SKURRILES_FUER_AHNUNGSLOSE_SURREAL': 'Skurriles Wissen',
+  'WISSENSCHAFT_FUER_SCHULABBRECHER_SURREAL': 'Wissenschaft & Alltag',
+
+  // Legacy categories
+  'GENERAL': 'Allgemeinwissen',
+  'SKURRILES': 'Skurriles Wissen',
+  'WISSENSCHAFT': 'Wissenschaft & Alltag',
+  'GESCHICHTE': 'Geschichte',
+  'POPKULTUR': 'Popkultur',
+  'TIERWISSEN': 'Tiere',
+  'TECHNIK': 'Technik',
+};
+
+/**
+ * Get display name for a category ID
+ */
+export function getCategoryDisplayName(categoryId: string): string {
+  return CATEGORY_DISPLAY_NAMES[categoryId] || categoryId;
 }
 
 /**

@@ -2,12 +2,17 @@
  * Question Bank
  * Complete collection of quiz questions across all categories
  *
- * Structure based on Concept reference with improved format
+ * UPDATED (Phase 5): Now includes new surreal categories with new question format
+ * - New format: 3 options, correctIndex, numeric difficulty (1-5), categoryId
+ * - Legacy format: 4 options, correctAnswer, string difficulty, category display name
  */
 
 import type { Question } from '../../models/Question';
+import { questionsSkurrilesSurreal } from './categories/skurriles_surreal';
+import { questionsWissenschaftSurreal } from './categories/wissenschaft_surreal';
 
-export const questionBank: Question[] = [
+// Legacy questions in old format (temporary - will be converted)
+const legacyQuestions = [
   // ========================================
   // SKURRILES WISSEN - Easy
   // ========================================
@@ -421,6 +426,16 @@ export const questionBank: Question[] = [
     difficulty: "hard",
     tags: ["gesetze", "alabama"]
   }
+] as any[]; // Temporary type assertion for legacy format compatibility
+
+/**
+ * Combined question bank: New format + Legacy format
+ * Phase 5: 100 new questions + ~34 legacy questions
+ */
+export const questionBank: Question[] = [
+  ...questionsSkurrilesSurreal,
+  ...questionsWissenschaftSurreal,
+  ...legacyQuestions as Question[], // Cast legacy questions (will be converted in future)
 ];
 
 /**

@@ -16,5 +16,5 @@ export {
   getTotalQuestionCount
 } from './helpers';
 
-// Re-export legacy loader for backward compatibility
-export * from './questionLoader';
+// Phase 5: Legacy loader temporarily disabled (not compatible with new format)
+// export * from './questionLoader';

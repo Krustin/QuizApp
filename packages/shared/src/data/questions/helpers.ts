@@ -1,14 +1,18 @@
 /**
- * Question Selection Helpers
+ * Question Selection Helpers - UPDATED (Phase 3)
  * Functions for selecting and shuffling questions based on various criteria
+ * Supports new question format with categoryId and numeric difficulty (1-5)
  */
 
 import type { Question } from '../../models/Question';
 import { questionBank } from './questions';
+import { getCategoryDisplayName } from '../../models';
 
 /**
  * Get questions for a specific category with difficulty distribution
- * @param category - Category name (e.g., "Skurriles Wissen")
+ * UPDATED (Phase 3): Now supports both categoryId and display name for backward compatibility
+ *
+ * @param category - Category ID or display name (e.g., "SKURRILES_FUER_AHNUNGSLOSE_SURREAL" or "Skurriles Wissen")
  * @param limit - Number of questions to return (default: 12)
  * @param excludeIds - Array of question IDs to exclude
  * @returns Array of shuffled questions with proper difficulty mix
@@ -18,14 +22,19 @@ export function getQuestionsByCategory(
   limit: number = 12,
   excludeIds: string[] = []
 ): Question[] {
-  const categoryQuestions = questionBank.filter(q =>
-    q.category === category && !excludeIds.includes(q.id)
-  );
+  // Phase 3: Support both categoryId and display name
+  const categoryQuestions = questionBank.filter(q => {
+    const matchesId = q.categoryId === category;
+    const displayName = getCategoryDisplayName(q.categoryId);
+    const matchesDisplayName = displayName === category;
+    return (matchesId || matchesDisplayName) && !excludeIds.includes(q.id);
+  });
 
-  // Mix verschiedener Schwierigkeitsgrade
-  const easy = categoryQuestions.filter(q => q.difficulty === "easy");
-  const medium = categoryQuestions.filter(q => q.difficulty === "medium");
-  const hard = categoryQuestions.filter(q => q.difficulty === "hard");
+  // Phase 3: Updated difficulty filtering for 1-5 scale
+  // Map difficulty ranges: 1-2=easy, 3=medium, 4-5=hard
+  const easy = categoryQuestions.filter(q => q.difficulty <= 2);
+  const medium = categoryQuestions.filter(q => q.difficulty === 3);
+  const hard = categoryQuestions.filter(q => q.difficulty >= 4);
 
   const selected: Question[] = [];
 
@@ -64,20 +73,37 @@ export function getRandomQuestions(
 
 /**
  * Get questions by difficulty level
- * @param difficulty - "easy", "medium", or "hard"
+ * UPDATED (Phase 3): Supports both string labels and numeric 1-5 scale
+ * @param difficulty - "easy", "medium", "hard" OR 1-5 numeric
  * @param limit - Number of questions to return
  * @returns Array of questions matching the difficulty
  */
 export function getQuestionsByDifficulty(
-  difficulty: "easy" | "medium" | "hard",
+  difficulty: "easy" | "medium" | "hard" | 1 | 2 | 3 | 4 | 5,
   limit: number = 12
 ): Question[] {
-  const filtered = questionBank.filter(q => q.difficulty === difficulty);
+  let filtered: Question[];
+
+  if (typeof difficulty === 'string') {
+    // String-based filtering with 1-5 mapping
+    if (difficulty === 'easy') {
+      filtered = questionBank.filter(q => q.difficulty <= 2);
+    } else if (difficulty === 'medium') {
+      filtered = questionBank.filter(q => q.difficulty === 3);
+    } else { // 'hard'
+      filtered = questionBank.filter(q => q.difficulty >= 4);
+    }
+  } else {
+    // Numeric filtering (1-5)
+    filtered = questionBank.filter(q => q.difficulty === difficulty);
+  }
+
   return shuffleArray(filtered).slice(0, limit);
 }
 
 /**
  * Get questions by tags
+ * UPDATED (Phase 3): Handles optional tags field
  * @param tags - Array of tags to filter by
  * @param limit - Number of questions to return
  * @returns Array of questions matching at least one tag
@@ -87,27 +113,29 @@ export function getQuestionsByTags(
   limit: number = 12
 ): Question[] {
   const filtered = questionBank.filter(q =>
-    q.tags.some(tag => tags.includes(tag))
+    q.tags && q.tags.some(tag => tags.includes(tag))
   );
   return shuffleArray(filtered).slice(0, limit);
 }
 
 /**
  * Get all available categories
- * @returns Array of unique category names
+ * UPDATED (Phase 3): Uses categoryId from new format
+ * @returns Array of unique category IDs
  */
 export function getAllCategories(): string[] {
-  return Array.from(new Set(questionBank.map(q => q.category)));
+  return Array.from(new Set(questionBank.map(q => q.categoryId)));
 }
 
 /**
  * Get count of questions per category
- * @returns Object mapping category names to question counts
+ * UPDATED (Phase 3): Uses categoryId from new format
+ * @returns Object mapping category IDs to question counts
  */
 export function getCategoryStats(): Record<string, number> {
   const stats: Record<string, number> = {};
   questionBank.forEach(q => {
-    stats[q.category] = (stats[q.category] || 0) + 1;
+    stats[q.categoryId] = (stats[q.categoryId] || 0) + 1;
   });
   return stats;
 }
@@ -133,14 +161,14 @@ function shuffleArray<T>(array: T[]): T[] {
  * @returns New question with shuffled options
  */
 export function shuffleQuestionOptions(question: Question): Question {
-  const correctAnswerText = question.options[question.correctAnswer];
+  const correctAnswerText = question.options[question.correctIndex]; // Phase 5: Updated to correctIndex
   const shuffled = shuffleArray(question.options);
   const newCorrectIndex = shuffled.indexOf(correctAnswerText);
 
   return {
     ...question,
     options: shuffled,
-    correctAnswer: newCorrectIndex
+    correctIndex: newCorrectIndex // Phase 5: Updated to correctIndex
   };
 }
 
